@@ -58,7 +58,7 @@ export default {
         challenge: Uint8Array.from('abner', (c) => c.charCodeAt(0)),
         rp: {
           name: 'Zoox WebAuthN',
-          id: 'webauthn-rodriguesabner.vercel.app/',
+          id: 'webauthn-rodriguesabner.vercel.app',
           // id: "zooxdemo.rc.smartpass.com",
         },
         user: {
