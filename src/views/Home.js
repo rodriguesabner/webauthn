@@ -41,7 +41,7 @@ export default {
         pubKeyCredParams: [{ alg: -7, type: 'public-key' }],
         authenticatorSelection: {
           authenticatorAttachment: 'platform',
-          requireResidentKey: false,
+          requireResidentKey: true,
         },
         timeout: 60000,
         attestation: 'none',
