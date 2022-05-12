@@ -53,8 +53,10 @@ export default {
         publicKey: publicKeyCredentialCreationOptions,
       });
 
+      alert(JSON.stringify(generatedCredentials));
+
       const { data } = await axios.post('https://cf18-2804-431-e7c2-22de-a5-45c9-a6f9-54fc.sa.ngrok.io/register', {
-        credential: generatedCredentials,
+        credential: { ...generatedCredentials },
       });
 
       this.credential = data.credentialId;
