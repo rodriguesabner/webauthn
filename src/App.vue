@@ -58,6 +58,7 @@ export default {
         challenge: Uint8Array.from('abner', (c) => c.charCodeAt(0)),
         rp: {
           name: 'Zoox WebAuthN',
+          // id: 'localhost',
           id: 'webauthn-beta.vercel.app',
           // id: "zooxdemo.rc.smartpass.com",
         },
@@ -70,9 +71,6 @@ export default {
           alg: -7,
           type: 'public-key',
         }],
-        authenticatorSelection: {
-          authenticatorAttachment: 'cross-platform',
-        },
         timeout: 60000,
         attestation: 'direct',
       };
