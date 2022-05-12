@@ -55,11 +55,10 @@ export default {
         credential.response.clientDataJSON,
       );
 
-      alert(credential.response);
-      alert(JSON.stringify(decodedClientData));
+      console.log(decodedClientData);
 
       const { data } = await axios.post('https://cf18-2804-431-e7c2-22de-a5-45c9-a6f9-54fc.sa.ngrok.io/register', {
-        credential,
+        credential: credential.response,
       });
 
       this.credential = data.credentialId;
