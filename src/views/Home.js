@@ -13,12 +13,9 @@ export default {
         allowCredentials: [{
           id: Uint8Array.from(this.credential, (c) => c.charCodeAt(0)),
           type: 'public-key',
-          transports: [
-            'internal',
-          ],
+          transports: ['internal'],
         }],
         timeout: 60000,
-        attestation: 'direct',
       };
 
       const assertion = await navigator.credentials.get({
@@ -33,13 +30,16 @@ export default {
         challenge: Uint8Array.from('abner', (c) => c.charCodeAt(0)),
         rp: {
           name: 'Zoox WebAuthN',
-          // id: 'localhost:8080',
-          id: 'webauthn-beta.vercel.app',
+          id: 'localhost',
+          // id: 'webauthn-beta.vercel.app',
         },
         user: {
-          id: Uint8Array.from('UZSL85T9AFC', (c) => c.charCodeAt(0)),
+          id: Uint8Array.from('abner', (c) => c.charCodeAt(0)),
           name: this.username,
           displayName: 'Abner Rodrigues',
+        },
+        authenticatorSelection: {
+          requireResidentKey: true,
         },
         pubKeyCredParams: [{
           alg: -7,
@@ -53,6 +53,7 @@ export default {
         publicKey: publicKeyCredentialCreationOptions,
       });
 
+      alert(generatedCredentials);
       this.credential = generatedCredentials;
     },
   },
