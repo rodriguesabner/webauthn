@@ -43,7 +43,7 @@ export default {
           type: 'public-key',
         }],
         authenticatorSelection: {
-          authenticatorAttachment: 'none',
+          authenticatorAttachment: 'unspecified',
         },
         timeout: 60000,
         attestation: 'direct',
