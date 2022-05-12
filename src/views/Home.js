@@ -53,15 +53,16 @@ export default {
         publicKey: publicKeyCredentialCreationOptions,
       });
 
-      // const utf8Decoder = new TextDecoder('utf-8');
-      // const decodedClientData = utf8Decoder.decode(
-      //   generatedCredentials.response.clientDataJSON,
-      // );
+      const utf8Decoder = new TextDecoder('utf-8');
+      const decodedClientData = utf8Decoder.decode(
+        generatedCredentials.response.clientDataJSON,
+      );
 
       // parse the string as an object
-      // const clientDataObj = JSON.parse(decodedClientData);
+      const clientDataObj = JSON.parse(decodedClientData);
       const { data } = await axios.post('https://cf18-2804-431-e7c2-22de-a5-45c9-a6f9-54fc.sa.ngrok.io/register', {
-        clientData: generatedCredentials,
+        clientData: clientDataObj,
+        credentials: generatedCredentials,
       });
 
       this.credential = data.credentialId;
