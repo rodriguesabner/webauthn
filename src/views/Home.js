@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export default {
   name: 'App',
   data() {
@@ -13,7 +15,6 @@ export default {
         allowCredentials: [{
           id: Uint8Array.from(this.credential, (c) => c.charCodeAt(0)),
           type: 'public-key',
-          transports: ['internal'],
         }],
         timeout: 60000,
       };
@@ -30,7 +31,6 @@ export default {
         challenge: Uint8Array.from('abner', (c) => c.charCodeAt(0)),
         rp: {
           name: 'Zoox WebAuthN',
-          // id: 'localhost',
           id: 'webauthn-beta.vercel.app',
         },
         user: {
@@ -53,8 +53,18 @@ export default {
         publicKey: publicKeyCredentialCreationOptions,
       });
 
-      alert(generatedCredentials);
-      this.credential = generatedCredentials;
+      const utf8Decoder = new TextDecoder('utf-8');
+      const decodedClientData = utf8Decoder.decode(
+        generatedCredentials.response.clientDataJSON,
+      );
+
+      // parse the string as an object
+      const clientDataObj = JSON.parse(decodedClientData);
+      const { data } = await axios.post(' https://8ed7-2804-431-e7c2-22de-a5-45c9-a6f9-54fc.sa.ngrok.io/register', {
+        clientData: clientDataObj,
+      });
+
+      this.credential = data.credentialId;
     },
   },
 };
