@@ -54,22 +54,17 @@ export default {
 
       const { data } = await axios.post('https://webhook.site/a6230aaa-1037-4b81-980f-fb03ef73d5dc', {
         credential,
-      }, {
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
+        nome: 'Romulo',
+        sobrenome: 'Sousa',
       });
 
       console.log(data);
     },
     async envia() {
-      await axios.post(
-        'https://webhook.site/a6230aaa-1037-4b81-980f-fb03ef73d5dc',
-        {
-          username: this.username,
-        },
-      );
+      await axios.post('http://webhook.site/a6230aaa-1037-4b81-980f-fb03ef73d5dc', {
+        nome: 'Romulo',
+        sobrenome: 'Sousa',
+      });
     },
   },
 };
