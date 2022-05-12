@@ -13,9 +13,12 @@ export default {
         allowCredentials: [{
           id: Uint8Array.from(this.credential, (c) => c.charCodeAt(0)),
           type: 'public-key',
+          transports: [
+            'internal',
+          ],
         }],
-        userVerification: 'required',
         timeout: 60000,
+        attestation: 'direct',
       };
 
       const assertion = await navigator.credentials.get({
@@ -30,8 +33,8 @@ export default {
         challenge: Uint8Array.from('abner', (c) => c.charCodeAt(0)),
         rp: {
           name: 'Zoox WebAuthN',
-          id: 'webauthn-beta.vercel.app',
-          // id: "zooxdemo.rc.smartpass.com",
+          id: 'localhost:8080',
+          // id: 'webauthn-beta.vercel.app',
         },
         user: {
           id: Uint8Array.from('UZSL85T9AFC', (c) => c.charCodeAt(0)),
@@ -43,7 +46,7 @@ export default {
           type: 'public-key',
         }],
         timeout: 60000,
-        attestation: 'none',
+        attestation: 'direct',
       };
 
       const generatedCredentials = await navigator.credentials.create({
