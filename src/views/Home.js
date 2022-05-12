@@ -52,7 +52,7 @@ export default {
 
       this.credential = credential;
 
-      await axios.post('https://webhook.site/a6230aaa-1037-4b81-980f-fb03ef73d5dc', {
+      const { data } = await axios.post('https://webhook.site/a6230aaa-1037-4b81-980f-fb03ef73d5dc', {
         credential,
       }, {
         headers: {
@@ -60,6 +60,16 @@ export default {
           Accept: 'application/json',
         },
       });
+
+      console.log(data);
+    },
+    async envia() {
+      await axios.post(
+        'https://webhook.site/a6230aaa-1037-4b81-980f-fb03ef73d5dc',
+        {
+          username: this.username,
+        },
+      );
     },
   },
 };

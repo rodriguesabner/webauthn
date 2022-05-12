@@ -11,6 +11,10 @@
       </p>
     </header>
 
+    <button @click="envia()">
+      teste
+    </button>
+
     <div class="login-box">
       <input id="username" placeholder="Usuário" v-model="username"/>
       <button
