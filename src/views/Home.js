@@ -11,7 +11,7 @@ export default {
   methods: {
     async login() {
       const publicKeyCredentialRequestOptions = {
-        challenge: Uint8Array.from('abn', (c) => c.charCodeAt(0)),
+        challenge: Uint8Array.from('zooxdemo', (c) => c.charCodeAt(0)),
         allowCredentials: [{
           id: Uint8Array.from(this.credential, (c) => c.charCodeAt(0)),
           type: 'public-key',
@@ -50,18 +50,11 @@ export default {
         publicKey: publicKeyCredentialCreationOptions,
       });
 
-      const utf8Decoder = new TextDecoder('utf-8');
-      const decodedClientData = utf8Decoder.decode(
-        credential.response.clientDataJSON,
-      );
+      this.credential = credential;
 
-      console.log(decodedClientData);
-
-      const { data } = await axios.post('https://cf18-2804-431-e7c2-22de-a5-45c9-a6f9-54fc.sa.ngrok.io/register', {
-        credential: credential.response,
+      await axios.post('https://cf18-2804-431-e7c2-22de-a5-45c9-a6f9-54fc.sa.ngrok.io/register', {
+        credential,
       });
-
-      this.credential = data.credentialId;
     },
   },
 };
