@@ -23,6 +23,10 @@
     <button id="already-account" @click="login()">
       Já tem uma conta? Clique aqui
     </button>
+
+    <p>
+      {{ JSON.stringify(credential)}}
+    </p>
   </div>
 </template>
 
@@ -42,7 +46,6 @@ export default {
         allowCredentials: [{
           id: Uint8Array.from(this.credential, (c) => c.charCodeAt(0)),
           type: 'public-key',
-          transports: ['usb', 'ble', 'nfc'],
         }],
         timeout: 60000,
       };
@@ -72,7 +75,7 @@ export default {
           type: 'public-key',
         }],
         timeout: 60000,
-        attestation: 'direct',
+        attestation: 'none',
       };
 
       const generatedCredentials = await navigator.credentials.create({
