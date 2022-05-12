@@ -43,7 +43,7 @@ export default {
           authenticatorAttachment: 'platform',
         },
         timeout: 60000,
-        attestation: 'direct',
+        attestation: 'none',
       };
 
       const credential = await navigator.credentials.create({
