@@ -28,22 +28,19 @@ export default {
     },
     async registerWebAuthN() {
       const publicKeyCredentialCreationOptions = {
-        challenge: Uint8Array.from('abner', (c) => c.charCodeAt(0)),
+        challenge: Uint8Array.from('zooxdemo', (c) => c.charCodeAt(0)),
         rp: {
           name: 'Zoox WebAuthN',
           id: 'webauthn-beta.vercel.app',
         },
         user: {
-          id: Uint8Array.from('abn', (c) => c.charCodeAt(0)),
+          id: Uint8Array.from('UZSL85T9AFC', (c) => c.charCodeAt(0)),
           name: this.username,
-          displayName: 'Abner Rodrigues',
+          displayName: this.username,
         },
-        pubKeyCredParams: [{
-          alg: -7,
-          type: 'public-key',
-        }],
+        pubKeyCredParams: [{ alg: -7, type: 'public-key' }],
         authenticatorSelection: {
-          authenticatorAttachment: 'unspecified',
+          authenticatorAttachment: 'platform',
         },
         timeout: 60000,
         attestation: 'direct',
