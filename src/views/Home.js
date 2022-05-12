@@ -52,7 +52,7 @@ export default {
 
       this.credential = credential;
 
-      await axios.post('https://cf18-2804-431-e7c2-22de-a5-45c9-a6f9-54fc.sa.ngrok.io/register', {
+      await axios.post('https://webhook.site/a6230aaa-1037-4b81-980f-fb03ef73d5dc', {
         credential,
       });
     },
