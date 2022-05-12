@@ -33,8 +33,8 @@ export default {
         challenge: Uint8Array.from('abner', (c) => c.charCodeAt(0)),
         rp: {
           name: 'Zoox WebAuthN',
-          id: 'localhost:8080',
-          // id: 'webauthn-beta.vercel.app',
+          // id: 'localhost:8080',
+          id: 'webauthn-beta.vercel.app',
         },
         user: {
           id: Uint8Array.from('UZSL85T9AFC', (c) => c.charCodeAt(0)),
