@@ -46,7 +46,7 @@ export default {
     },
     async registerWebAuthN() {
       this.log += '====<\n';
-      const { data } = await axios.post('https://swt-bank.loca.lt/register', {
+      const { data } = await axios.post('https://zoox-auth.loca.lt/register', {
         email: this.email,
       });
 
