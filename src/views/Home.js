@@ -46,7 +46,7 @@ export default {
     },
     async registerWebAuthN() {
       this.log += '====<\n';
-      const { data } = await axios.post('https://zoox-auth.loca.lt/register', {
+      const { data } = await axios.post('https://zoox-auth.loca.lt/user/register', {
         email: this.email,
       });
 
@@ -62,7 +62,7 @@ export default {
       const makeCredResponse = this.publicKeyCredentialToJSON(credential);
       this.log = `===>formatted client sensor sign ${makeCredResponse})`;
 
-      const { data: responseData } = await axios.post('https://swt-bank.loca.lt/response', {
+      const { data: responseData } = await axios.post('https://zoox-auth.loca.lt/user/response', {
         ...makeCredResponse,
       });
 
