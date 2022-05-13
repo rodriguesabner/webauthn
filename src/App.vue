@@ -16,7 +16,7 @@
     </button>
 
     <div class="login-box">
-      <input id="username" placeholder="Usuário" v-model="username"/>
+      <input id="username" placeholder="seu@email.com" v-model="email"/>
       <button
         id="btn-login"
         @click="registerWebAuthN()">
