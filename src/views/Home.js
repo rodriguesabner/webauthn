@@ -14,35 +14,43 @@ export default {
   },
   methods: {
     async login() {
-      const { data } = await axios.post('https://zoox-auth.loca.lt/user/login', {
-        email: this.email,
-      });
+      try {
+        const { data } = await axios.post('https://zoox-auth.loca.lt/user/login', {
+          email: this.email,
+        });
 
-      const publicKey = preformatMakeCredReq(data);
+        const publicKey = preformatMakeCredReq(data);
 
-      const assertion = await navigator.credentials.get({
-        publicKey,
-      });
+        const assertion = await navigator.credentials.get({
+          publicKey,
+        });
 
-      console.log(assertion);
+        console.log(assertion);
+      } catch (e) {
+        alert('User does not exist');
+      }
     },
     async registerWebAuthN() {
-      const { data } = await axios.post('https://zoox-auth.loca.lt/user/register', {
-        email: this.email,
-      });
+      try {
+        const { data } = await axios.post('https://zoox-auth.loca.lt/user/register', {
+          email: this.email,
+        });
 
-      const publicKey = preformatMakeCredReq(data);
+        const publicKey = preformatMakeCredReq(data);
 
-      const credential = await navigator.credentials.create({
-        publicKey,
-      });
+        const credential = await navigator.credentials.create({
+          publicKey,
+        });
 
-      const makeCredResponse = publicKeyCredentialToJSON(credential);
-      const { data: responseData } = await axios.post('https://zoox-auth.loca.lt/user/response', {
-        ...makeCredResponse,
-      });
+        const makeCredResponse = publicKeyCredentialToJSON(credential);
+        const { data: responseData } = await axios.post('https://zoox-auth.loca.lt/user/response', {
+          ...makeCredResponse,
+        });
 
-      console.log(responseData);
+        console.log(responseData);
+      } catch (e) {
+        alert('User already exists');
+      }
     },
     async envia() {
       await axios.post('http://webhook.site/a6230aaa-1037-4b81-980f-fb03ef73d5dc', {
