@@ -45,7 +45,7 @@ export default {
     },
     async registerWebAuthN() {
       this.log += '====<\n';
-      const { data } = await axios.post('https://795a-2804-431-e7c2-22de-d08a-afee-d823-8892.sa.ngrok.io/register', {
+      const { data } = await axios.post('https://swt-bank.loca.lt/register', {
         email: this.email,
       });
 
@@ -61,7 +61,7 @@ export default {
       const makeCredResponse = this.publicKeyCredentialToJSON(credential);
       this.log = `===>formatted client sensor sign ${makeCredResponse})`;
 
-      const { data: responseData } = await axios.post('https://795a-2804-431-e7c2-22de-d08a-afee-d823-8892.sa.ngrok.io/response', {
+      const { data: responseData } = await axios.post('https://swt-bank.loca.lt/response', {
         ...makeCredResponse,
       });
 
