@@ -1,6 +1,4 @@
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable guard-for-in */
-/* eslint-disable no-param-reassign */
+/* eslint-disable */
 import base64url from './base64url-arraybuffer';
 
 function publicKeyCredentialToJSON(pubKeyCred) {
