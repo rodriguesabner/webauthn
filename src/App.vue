@@ -29,7 +29,7 @@
     </button>
 
     <p>
-      {{ JSON.stringify(credential) }}
+      {{ JSON.stringify(log) }}
     </p>
   </div>
 </template>
