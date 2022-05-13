@@ -9,11 +9,12 @@ export default {
       email: '',
       credential: null,
       log: '',
+      loggedIn: false,
     };
   },
   methods: {
     async login() {
-      const { data } = await axios.post('https://zoox-auth.loca.lt/user/register', {
+      const { data } = await axios.post('https://zoox-auth.loca.lt/user/login', {
         email: this.email,
       });
 
