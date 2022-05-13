@@ -39,7 +39,7 @@ export default {
     preformatMakeCredReq(makeCredReq) {
       const modieifiedCred = { ...makeCredReq };
       modieifiedCred.challenge = base64urlArraybuffer.decode(modieifiedCred.challenge);
-      alert(modieifiedCred.challenge);
+      alert(JSON.stringify(modieifiedCred));
       modieifiedCred.user.id = base64urlArraybuffer.decode(modieifiedCred.user.id);
 
       return modieifiedCred;
