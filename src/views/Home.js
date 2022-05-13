@@ -39,7 +39,7 @@ export default {
     preformatMakeCredReq(makeCredReq) {
       const modieifiedCred = { ...makeCredReq };
       modieifiedCred.challenge = base64urlArraybuffer.decode(modieifiedCred.challenge);
-      alert(JSON.stringify(modieifiedCred));
+      debugger;
       modieifiedCred.user.id = base64urlArraybuffer.decode(modieifiedCred.user.id);
 
       return modieifiedCred;
@@ -50,22 +50,30 @@ export default {
         email: this.email,
       });
 
+      debugger;
+
       this.log += `====> server cred: ${JSON.stringify(data)}\n`;
       const publicKey = this.preformatMakeCredReq(data);
+
+      debugger;
       this.log += `====> assert publicKey: ${JSON.stringify(publicKey)}\n`;
 
       const credential = await navigator.credentials.create({
         publicKey,
       });
+
+      debugger;
       this.log += `====> client sensor sign ${JSON.stringify(credential)}\n`;
 
       const makeCredResponse = this.publicKeyCredentialToJSON(credential);
       this.log = `===>formatted client sensor sign ${makeCredResponse})`;
 
+      debugger;
       const { data: responseData } = await axios.post('https://zoox-auth.loca.lt/user/response', {
         ...makeCredResponse,
       });
 
+      debugger;
       console.log(responseData);
     },
     publicKeyCredentialToJSON(pubKeyCred) {
