@@ -32,11 +32,15 @@ function generateRandomBuffer(len) {
 }
 
 const preformatMakeCredReq = (makeCredReq) => {
-  const modieifiedCred = { ...makeCredReq };
-  modieifiedCred.challenge = base64url.decode(modieifiedCred.challenge);
-  modieifiedCred.user.id = base64url.decode(modieifiedCred.user.id);
+  const modified = { ...makeCredReq };
+  const challengeId = Buffer.from(Uint8Array.from("teste", c => c.charCodeAt(0))).toString("base64")
+  const userId = Buffer.from(Uint8Array.from("UZSL85T9AFC", c => c.charCodeAt(0))).toString("base64")
 
-  return modieifiedCred;
+  modified.challenge = challengeId;
+  modified.user.id = userId;
+
+
+  return modified;
 };
 
 const preformatGetAssertReq = (getAssert) => {
