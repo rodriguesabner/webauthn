@@ -22,15 +22,6 @@ function publicKeyCredentialToJSON(pubKeyCred) {
   return pubKeyCred;
 }
 
-function generateRandomBuffer(len) {
-  len = len || 32;
-
-  const randomBuffer = new Uint8Array(len);
-  window.crypto.getRandomValues(randomBuffer);
-
-  return randomBuffer;
-}
-
 const preformatMakeCredReq = (makeCredReq) => {
   const modified = { ...makeCredReq };
 
@@ -84,7 +75,6 @@ function isPlatformWebAuthnSupport() {
 
 export {
   publicKeyCredentialToJSON,
-  generateRandomBuffer,
   preformatGetAssertReq,
   preformatMakeCredReq,
   isPlatformWebAuthnSupport,

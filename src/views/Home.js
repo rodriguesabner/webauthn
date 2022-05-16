@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { preformatMakeCredReq } from '@/common/helper';
+import { preformatMakeCredReq, publicKeyCredentialToJSON } from '@/common/helper';
 
 export default {
   name: 'App',
@@ -43,8 +43,9 @@ export default {
           publicKey,
         });
 
+        const makeCredResponse = publicKeyCredentialToJSON(credential);
         const { data: responseData } = await axios.post('https://zoox-auth.loca.lt/user/response', {
-          ...credential,
+          ...makeCredResponse,
         });
 
         console.log(responseData);
