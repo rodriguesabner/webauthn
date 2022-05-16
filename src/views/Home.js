@@ -43,9 +43,8 @@ export default {
           publicKey,
         });
 
-        const makeCredResponse = publicKeyCredentialToJSON(credential);
         const { data: responseData } = await axios.post('https://zoox-auth.loca.lt/user/response', {
-          ...makeCredResponse,
+          ...credential,
         });
 
         console.log(responseData);
