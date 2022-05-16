@@ -21,29 +21,31 @@ function publicKeyCredentialToJSON(pubKeyCred) {
 
   return pubKeyCred;
 }
+const performGetAssertion = (getAssertionRequest) => {
+  getAssertionRequest.challenge = base64url.decode(getAssertionRequest.challenge);
 
-const preformatMakeCredReq = (makeCredReq) => {
-  const modified = { ...makeCredReq };
-
-  // pega os ids: challenge e userId e faz o encrypt (esses dados vem do server);
-  const challengeId = Uint8Array.from(modified.challenge, c => c.charCodeAt(0));
-  const userId = Uint8Array.from(modified.user.id, c => c.charCodeAt(0));
-
-  modified.challenge = challengeId;
-  modified.user.id = userId;
-
-  return modified;
-};
-
-const preformatGetAssertReq = (getAssert) => {
-  getAssert.challenge = base64url.decode(getAssert.challenge);
-
-  for (const allowCred of getAssert.allowCredentials) {
-    allowCred.id = base64url.decode(allowCred.id);
+  if(getAssertionRequest.allowCredentials) {
+    for(let allowCred of getAssertionRequest.allowCredentials) {
+      allowCred.id = base64url.decode(allowCred.id);
+    }
   }
 
-  return getAssert;
-};
+  return getAssertionRequest
+}
+
+const preformatMakeCredReq = (makeCredentialRequest) => {
+  makeCredentialRequest.challenge = base64url.decode(makeCredentialRequest.challenge);
+  makeCredentialRequest.user.id   = base64url.decode(makeCredentialRequest.user.id);
+
+  if(makeCredentialRequest.excludeCredentials) {
+    for(let excludeCred of makeCredentialRequest.excludeCredentials) {
+      excludeCred.id = base64url.decode(excludeCred.id);
+    }
+  }
+
+  return makeCredentialRequest
+}
+
 
 function isPlatformWebAuthnSupport() {
   return new Promise((resolve) => {
@@ -75,7 +77,7 @@ function isPlatformWebAuthnSupport() {
 
 export {
   publicKeyCredentialToJSON,
-  preformatGetAssertReq,
+  performGetAssertion,
   preformatMakeCredReq,
   isPlatformWebAuthnSupport,
 };

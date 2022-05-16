@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { preformatMakeCredReq, publicKeyCredentialToJSON } from '@/common/helper';
+import {
+  performGetAssertion,
+  preformatGetAssertReq,
+  preformatMakeCredReq,
+  publicKeyCredentialToJSON,
+} from '@/common/helper';
 
 export default {
   name: 'App',
@@ -19,15 +24,13 @@ export default {
           email: this.email,
         });
 
-        const publicKey = preformatMakeCredReq(data);
+        const publicKey = performGetAssertion(data);
 
-        const assertion = await navigator.credentials.get({
-          publicKey,
-        });
+        const assertion = await navigator.credentials.get({ publicKey });
 
         console.log(assertion);
       } catch (e) {
-        alert('User does not exist');
+        alert('Ocorreu um erro, por favor, dê uma olhada no log.');
       }
     },
     async registerWebAuthN() {
