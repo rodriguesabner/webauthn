@@ -8,7 +8,7 @@ function publicKeyCredentialToJSON(pubKeyCred) {
 
     return arr;
   } if (pubKeyCred instanceof ArrayBuffer) {
-    return base64url.encode(pubKeyCred);
+    return pubKeyCred;
   } if (pubKeyCred instanceof Object) {
     const obj = {};
 
@@ -27,7 +27,7 @@ const preformatMakeCredReq = (makeCredReq) => {
 
   // pega os ids: challenge e userId e faz o encrypt (esses dados vem do server);
   const challengeId = Uint8Array.from(modified.challenge, c => c.charCodeAt(0));
-  const userId = Uint8Array.from("UZSL85T9AFC", c => c.charCodeAt(0));
+  const userId = Uint8Array.from(modified.user.id, c => c.charCodeAt(0));
 
   modified.challenge = challengeId;
   modified.user.id = userId;

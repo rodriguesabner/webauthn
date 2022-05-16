@@ -19,7 +19,6 @@ export default {
           email: this.email,
         });
 
-        debugger;
         const publicKey = preformatMakeCredReq(data);
 
         const assertion = await navigator.credentials.get({
@@ -39,9 +38,7 @@ export default {
 
         const publicKey = preformatMakeCredReq(data);
 
-        const credential = await navigator.credentials.create({
-          publicKey,
-        });
+        const credential = await navigator.credentials.create({ publicKey });
 
         const makeCredResponse = publicKeyCredentialToJSON(credential);
         const { data: responseData } = await axios.post('https://zoox-auth.loca.lt/user/response', {
