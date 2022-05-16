@@ -8,7 +8,7 @@ function publicKeyCredentialToJSON(pubKeyCred) {
 
     return arr;
   } if (pubKeyCred instanceof ArrayBuffer) {
-    return pubKeyCred;
+    return base64url.encode(pubKeyCred);
   } if (pubKeyCred instanceof Object) {
     const obj = {};
 
