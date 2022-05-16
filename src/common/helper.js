@@ -33,8 +33,8 @@ function generateRandomBuffer(len) {
 
 const preformatMakeCredReq = (makeCredReq) => {
   const modified = { ...makeCredReq };
-  const challengeId = Buffer.from(Uint8Array.from("teste", c => c.charCodeAt(0))).toString("base64")
-  const userId = Buffer.from(Uint8Array.from("UZSL85T9AFC", c => c.charCodeAt(0))).toString("base64")
+  const challengeId = Uint8Array.from("teste", c => c.charCodeAt(0));
+  const userId = Uint8Array.from("UZSL85T9AFC", c => c.charCodeAt(0));
 
   modified.challenge = challengeId;
   modified.user.id = userId;

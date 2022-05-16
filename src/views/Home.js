@@ -49,7 +49,8 @@ export default {
 
         console.log(responseData);
       } catch (e) {
-        alert('User already exists');
+        console.log(e);
+        alert('Ocorreu um erro, por favor, dê uma olhada no log.');
       }
     },
     async envia() {
