@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { preformatMakeCredReq, publicKeyCredentialToJSON } from '@/common/helper';
+import { preformatMakeCredReq } from '@/common/helper';
 
 export default {
   name: 'App',
