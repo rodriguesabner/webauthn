@@ -33,12 +33,13 @@ function generateRandomBuffer(len) {
 
 const preformatMakeCredReq = (makeCredReq) => {
   const modified = { ...makeCredReq };
-  const challengeId = Uint8Array.from("teste", c => c.charCodeAt(0));
+
+  // pega os ids: challenge e userId e faz o encrypt (esses dados vem do server);
+  const challengeId = Uint8Array.from(modified.challenge, c => c.charCodeAt(0));
   const userId = Uint8Array.from("UZSL85T9AFC", c => c.charCodeAt(0));
 
   modified.challenge = challengeId;
   modified.user.id = userId;
-
 
   return modified;
 };

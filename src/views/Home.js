@@ -19,6 +19,7 @@ export default {
           email: this.email,
         });
 
+        debugger;
         const publicKey = preformatMakeCredReq(data);
 
         const assertion = await navigator.credentials.get({
