@@ -24,29 +24,22 @@ function publicKeyCredentialToJSON(pubKeyCred) {
   return pubKeyCred;
 }
 
-const performGetAssertion = (getAssertionRequest) => {
-  getAssertionRequest.challenge = Uint8Array.from(window.atob(getAssertionRequest.challenge), c => c.charCodeAt(0));
+let preformatMakeCredReq = (makeCredReq) => {
+  let modieifiedCred = { ...makeCredReq };
+  modieifiedCred.challenge = base64url.decode(modieifiedCred.challenge);
+  modieifiedCred.user.id = base64url.decode(modieifiedCred.user.id);
 
-  if (getAssertionRequest.allowCredentials) {
-    for (let allowCred of getAssertionRequest.allowCredentials) {
-      allowCred.id = Uint8Array.from(window.atob(allowCred.id), c => c.charCodeAt(0));
-    }
+  return modieifiedCred;
+};
+
+const preformatGetAssertReq = (getAssert) => {
+  getAssert.challenge = base64url.decode(getAssert.challenge);
+
+  for (let allowCred of getAssert.allowCredentials) {
+    allowCred.id = base64url.decode(allowCred.id);
   }
 
-  return getAssertionRequest
-}
-
-const preformatMakeCredReq = (makeCredentialRequest) => {
-  makeCredentialRequest.challenge = Uint8Array.from(window.atob(makeCredentialRequest.challenge), c => c.charCodeAt(0));
-  makeCredentialRequest.user.id = Uint8Array.from(window.atob(makeCredentialRequest.user.id), c => c.charCodeAt(0));
-
-  if (makeCredentialRequest.excludeCredentials) {
-    for (let excludeCred of makeCredentialRequest.excludeCredentials) {
-      excludeCred.id = base64url.decode(excludeCred.id);
-    }
-  }
-
-  return makeCredentialRequest
+  return getAssert;
 }
 
 
@@ -80,7 +73,7 @@ function isPlatformWebAuthnSupport() {
 
 export {
   publicKeyCredentialToJSON,
-  performGetAssertion,
   preformatMakeCredReq,
+  preformatGetAssertReq,
   isPlatformWebAuthnSupport,
 };
