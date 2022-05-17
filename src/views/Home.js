@@ -31,6 +31,7 @@ export default {
         console.log(assertion);
       } catch (e) {
         console.log(e);
+        this.log = JSON.stringify(e.message);
         alert('Ocorreu um erro, por favor, dê uma olhada no log.');
       }
     },
