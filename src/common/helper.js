@@ -35,10 +35,9 @@ let preformatMakeCredReq = (makeCredReq) => {
 const preformatGetAssertReq = (getAssert) => {
   getAssert.challenge = Uint8Array.from(window.atob(getAssert.challenge), c => c.charCodeAt(0));
 
-  for (let allowCred of getAssert.allowCredentials) {
-    alert(allowCred.id);
-    allowCred.id = Uint8Array.from(window.atob(allowCred.id), c => c.charCodeAt(0));
-  }
+  // for (let allowCred of getAssert.allowCredentials) {
+  //   allowCred.id = allowCred.id;
+  // }
 
   return getAssert;
 }
