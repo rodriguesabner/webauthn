@@ -29,7 +29,7 @@
     </button>
 
     <p>
-      {{ JSON.stringify(log) }}
+      {{ log }}
     </p>
   </div>
 </template>

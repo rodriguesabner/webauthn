@@ -25,6 +25,7 @@ export default {
 
         const publicKey = performGetAssertion(data);
 
+        this.log = JSON.stringify(publicKey);
         const assertion = await navigator.credentials.get({ publicKey });
 
         console.log(assertion);
