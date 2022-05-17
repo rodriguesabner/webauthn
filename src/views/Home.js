@@ -16,10 +16,18 @@ export default {
       loggedIn: false,
     };
   },
+  created() {
+    this.api = axios.create({
+      baseURL: 'https://9c46-2804-431-e7c2-66c1-ba7d-7b99-3c56-2ce6.sa.ngrok.io',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  },
   methods: {
     async login() {
       try {
-        const { data } = await axios.post('https://zoox-auth.loca.lt/user/login', {
+        const { data } = await this.api.post('/user/login', {
           email: this.email,
         });
 
@@ -27,7 +35,7 @@ export default {
         const assertion = await navigator.credentials.get({ publicKey });
 
         const makeCredResponse = publicKeyCredentialToJSON(assertion);
-        const { data: responseData } = await axios.post('https://zoox-auth.loca.lt/user/response', {
+        const { data: responseData } = await this.api.post('/user/response', {
           ...makeCredResponse,
         });
 
@@ -40,7 +48,7 @@ export default {
     },
     async registerWebAuthN() {
       try {
-        const { data } = await axios.post('https://zoox-auth.loca.lt/user/register', {
+        const { data } = await this.api.post('/user/register', {
           email: this.email,
         });
 
@@ -50,7 +58,7 @@ export default {
         const credential = await navigator.credentials.create({ publicKey });
 
         const makeCredResponse = publicKeyCredentialToJSON(credential);
-        const { data: responseData } = await axios.post('https://zoox-auth.loca.lt/user/response', {
+        const { data: responseData } = await this.api.post('/user/response', {
           ...makeCredResponse,
         });
 
@@ -59,12 +67,6 @@ export default {
         console.log(e);
         alert('Ocorreu um erro, por favor, dê uma olhada no log.');
       }
-    },
-    async envia() {
-      await axios.post('http://webhook.site/a6230aaa-1037-4b81-980f-fb03ef73d5dc', {
-        nome: 'Abner',
-        sobrenome: 'Rodrigues',
-      });
     },
   },
 };

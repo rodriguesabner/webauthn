@@ -11,10 +11,6 @@
       </p>
     </header>
 
-    <button @click="envia()">
-      teste
-    </button>
-
     <div class="login-box">
       <input id="username" placeholder="seu@email.com" v-model="email"/>
       <button
