@@ -41,6 +41,7 @@ export default {
         });
 
         const publicKey = preformatMakeCredReq(data);
+        this.log = JSON.stringify(publicKey);
 
         const credential = await navigator.credentials.create({ publicKey });
 
