@@ -24,11 +24,14 @@ export default {
         });
 
         const publicKey = performGetAssertion(data);
-        this.log = JSON.stringify(publicKey);
-
         const assertion = await navigator.credentials.get({ publicKey });
 
-        console.log(assertion);
+        const makeCredResponse = publicKeyCredentialToJSON(assertion);
+        const { data: responseData } = await axios.post('https://zoox-auth.loca.lt/user/response', {
+          ...makeCredResponse,
+        });
+
+        console.log(responseData);
       } catch (e) {
         console.log(e);
         this.log = JSON.stringify(e.message);
