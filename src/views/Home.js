@@ -41,10 +41,11 @@ export default {
         });
 
         const publicKey = preformatMakeCredReq(data);
+        this.log = JSON.stringify(publicKey);
+
         const credential = await navigator.credentials.create({ publicKey });
 
         const makeCredResponse = publicKeyCredentialToJSON(credential);
-        this.log = JSON.stringify(makeCredResponse);
         const { data: responseData } = await axios.post('https://zoox-auth.loca.lt/user/response', {
           ...makeCredResponse,
         });
