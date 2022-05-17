@@ -26,8 +26,8 @@ function publicKeyCredentialToJSON(pubKeyCred) {
 
 let preformatMakeCredReq = (makeCredReq) => {
   let modieifiedCred = { ...makeCredReq };
-  modieifiedCred.challenge = base64url.decode(modieifiedCred.challenge);
-  modieifiedCred.user.id = base64url.decode(modieifiedCred.user.id);
+  modieifiedCred.challenge = Uint8Array.from(window.atob(modieifiedCred.challenge), c=>c.charCodeAt(0));
+  modieifiedCred.user.id = Uint8Array.from(window.atob(modieifiedCred.user.id), c=>c.charCodeAt(0));
 
   return modieifiedCred;
 };
