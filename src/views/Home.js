@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {
   performGetAssertion,
-  preformatGetAssertReq,
   preformatMakeCredReq,
   publicKeyCredentialToJSON,
 } from '@/common/helper';
@@ -30,6 +29,7 @@ export default {
 
         console.log(assertion);
       } catch (e) {
+        console.log(e);
         alert('Ocorreu um erro, por favor, dê uma olhada no log.');
       }
     },
