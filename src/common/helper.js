@@ -7,9 +7,11 @@ function publicKeyCredentialToJSON(pubKeyCred) {
     for (const i of pubKeyCred) arr.push(publicKeyCredentialToJSON(i));
 
     return arr;
-  } if (pubKeyCred instanceof ArrayBuffer) {
+  }
+  if (pubKeyCred instanceof ArrayBuffer) {
     return base64url.encode(pubKeyCred);
-  } if (pubKeyCred instanceof Object) {
+  }
+  if (pubKeyCred instanceof Object) {
     const obj = {};
 
     for (const key in pubKeyCred) {
@@ -21,12 +23,13 @@ function publicKeyCredentialToJSON(pubKeyCred) {
 
   return pubKeyCred;
 }
-const performGetAssertion = (getAssertionRequest) => {
-  getAssertionRequest.challenge = base64url.decode(getAssertionRequest.challenge);
 
-  if(getAssertionRequest.allowCredentials) {
-    for(let allowCred of getAssertionRequest.allowCredentials) {
-      allowCred.id = base64url.decode(allowCred.id);
+const performGetAssertion = (getAssertionRequest) => {
+  getAssertionRequest.challenge = Uint8Array.from(window.atob(getAssertionRequest.challenge), c => c.charCodeAt(0));
+
+  if (getAssertionRequest.allowCredentials) {
+    for (let allowCred of getAssertionRequest.allowCredentials) {
+      allowCred.id = Uint8Array.from(window.atob(allowCred.id), c => c.charCodeAt(0));
     }
   }
 
@@ -34,11 +37,11 @@ const performGetAssertion = (getAssertionRequest) => {
 }
 
 const preformatMakeCredReq = (makeCredentialRequest) => {
-  makeCredentialRequest.challenge = Uint8Array.from(window.atob(makeCredentialRequest.challenge), c=>c.charCodeAt(0));
-  makeCredentialRequest.user.id   = Uint8Array.from(window.atob(makeCredentialRequest.user.id), c=>c.charCodeAt(0));
+  makeCredentialRequest.challenge = Uint8Array.from(window.atob(makeCredentialRequest.challenge), c => c.charCodeAt(0));
+  makeCredentialRequest.user.id = Uint8Array.from(window.atob(makeCredentialRequest.user.id), c => c.charCodeAt(0));
 
-  if(makeCredentialRequest.excludeCredentials) {
-    for(let excludeCred of makeCredentialRequest.excludeCredentials) {
+  if (makeCredentialRequest.excludeCredentials) {
+    for (let excludeCred of makeCredentialRequest.excludeCredentials) {
       excludeCred.id = base64url.decode(excludeCred.id);
     }
   }
