@@ -34,8 +34,8 @@ const performGetAssertion = (getAssertionRequest) => {
 }
 
 const preformatMakeCredReq = (makeCredentialRequest) => {
-  makeCredentialRequest.challenge = base64url.decode(makeCredentialRequest.challenge);
-  makeCredentialRequest.user.id   = base64url.decode(makeCredentialRequest.user.id);
+  makeCredentialRequest.challenge = Uint8Array.from(window.atob(makeCredentialRequest.challenge), c=>c.charCodeAt(0));
+  makeCredentialRequest.user.id   = Uint8Array.from(window.atob(makeCredentialRequest.user.id), c=>c.charCodeAt(0));
 
   if(makeCredentialRequest.excludeCredentials) {
     for(let excludeCred of makeCredentialRequest.excludeCredentials) {
