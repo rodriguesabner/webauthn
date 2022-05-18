@@ -9,7 +9,7 @@ export default {
   data() {
     return {
       username: '',
-      email: '',
+      email: 'abner@gmail.com',
       credential: null,
       log: '',
       loggedIn: false,

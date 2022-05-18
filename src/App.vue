@@ -12,7 +12,7 @@
     </header>
 
     <div class="login-box">
-      <input id="username" placeholder="seu@email.com" v-model="email"/>
+      <input id="username" type="email" placeholder="seu@email.com" v-model="email"/>
       <button
         id="btn-login"
         @click="registerWebAuthN()">
