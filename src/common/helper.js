@@ -24,23 +24,28 @@ function publicKeyCredentialToJSON(pubKeyCred) {
   return pubKeyCred;
 }
 
-let preformatMakeCredReq = (makeCredReq) => {
-  let modieifiedCred = {...makeCredReq};
-  modieifiedCred.challenge = Uint8Array.from(window.atob(modieifiedCred.challenge), c => c.charCodeAt(0));
-  modieifiedCred.user.id = Uint8Array.from(window.atob(modieifiedCred.user.id), c => c.charCodeAt(0));
+let preformatMakeCredReq = (params) => {
+  let modifiedParams = {...params};
 
-  return modieifiedCred;
+  const challengeDecoded = window.atob(modifiedParams.challenge);
+  const decodedUserId = window.atob(modifiedParams.user.id);
+
+  modifiedParams.challenge = Uint8Array.from(challengeDecoded, c => c.charCodeAt(0));
+  modifiedParams.user.id = Uint8Array.from(decodedUserId, c => c.charCodeAt(0));
+
+  return modifiedParams;
 };
 
-const preformatGetAssertReq = (getAssert) => {
-  getAssert.challenge = Uint8Array.from(window.atob(getAssert.challenge), c => c.charCodeAt(0));
+const preformatGetAssertReq = (params) => {
+  const challengeDecoded = window.atob(params.challenge);
+  params.challenge = Uint8Array.from(challengeDecoded, c => c.charCodeAt(0));
 
-  for (let allowCred of getAssert.allowCredentials) {
-    alert(allowCred.id);
-    allowCred.id = Uint8Array.from(allowCred.id, c => c.charCodeAt(0));
+  for (let allowCred of params.allowCredentials) {
+    const decodedCredentialId = window.atob(allowCred.id);
+    allowCred.id = Uint8Array.from(decodedCredentialId, c => c.charCodeAt(0));
   }
 
-  return getAssert;
+  return params;
 }
 
 
