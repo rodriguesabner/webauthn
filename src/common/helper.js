@@ -42,13 +42,11 @@ const preformatGetAssertReq = (params) => {
 
   alert(JSON.stringify(params.allowCredentials));
 
-  // if(params.allowCredentials) {
-  //   for (let allowCred of params.allowCredentials) {
-  //     const decodedCredentialId = window.atob(allowCred.id);
-  //     alert(decodedCredentialId);
-  //     allowCred.id = decodedCredentialId;
-  //   }
-  // }
+  if(params.allowCredentials) {
+    for(let allowCred of params.allowCredentials) {
+      allowCred.id = base64url.decode(allowCred.id);
+    }
+  }
 
   return params;
 }
