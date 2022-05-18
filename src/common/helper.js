@@ -36,21 +36,17 @@ let preformatMakeCredReq = (params) => {
   return modifiedParams;
 };
 
-const preformatGetAssertReq = (params, log) => {
+const preformatGetAssertReq = (params) => {
   const challengeDecoded = window.atob(params.challenge);
   params.challenge = Uint8Array.from(challengeDecoded, c => c.charCodeAt(0));
 
   if(params.allowCredentials) {
     for (let allowCred of params.allowCredentials) {
       const decodedCredentialId = window.atob(allowCred.id);
+      alert(decodedCredentialId);
       allowCred.id = decodedCredentialId;
     }
   }
-
-  log = JSON.stringify({
-    challenge: params.challenge,
-    allowCredentials: {...params.allowCredentials}
-  }, null, 2)
 
   return params;
 }
