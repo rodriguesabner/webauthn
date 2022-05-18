@@ -10,6 +10,7 @@ export default {
     return {
       username: '',
       email: 'abner@gmail.com',
+      password: 'abner',
       credential: null,
       log: '',
       loggedIn: false,
@@ -28,6 +29,7 @@ export default {
       try {
         const { data } = await this.api.post('/user/login', {
           email: this.email,
+          password: this.password,
         });
 
         const publicKey = preformatGetAssertReq(data, this.log);

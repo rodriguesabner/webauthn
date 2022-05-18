@@ -22,6 +22,16 @@
           v-model="email"
         />
       </label>
+      <label for="username">
+        Senha
+
+        <input
+          id="username"
+          type="password"
+          placeholder="senha"
+          v-model="password"
+        />
+      </label>
       <button
         id="btn-login"
         @click="registerWebAuthN()">
@@ -84,10 +94,14 @@ header {
 
 .login-box {
   display: flex;
-  flex-direction: row;
-  align-items: end;
+  flex-direction: column;
   margin-top: 2em;
   max-width: 250px;
+}
+
+.login-box label {
+  margin-bottom: 10px;
+  font-size: 12px;
 }
 
 #username {
@@ -103,7 +117,7 @@ header {
   background-color: #F2F4F6;
   padding: 8px 10px;
   border: 0;
-  margin-left: 10px;
+  margin-top: 10px;
   cursor: pointer;
   border-radius: 4px;
   color: dodgerblue;
