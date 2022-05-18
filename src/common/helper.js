@@ -27,14 +27,20 @@ function publicKeyCredentialToJSON(pubKeyCred) {
 let preformatMakeCredReq = (params) => {
   let modifiedParams = {...params};
 
-  modifiedParams.challenge = base64url.decode(modifiedParams.challenge);
-  modifiedParams.user.id = base64url.decode(modifiedParams.user.id);
+  const challengeDecoded = window.atob(modifiedParams.challenge);
+  const decodedUserId = window.atob(modifiedParams.user.id);
+
+  modifiedParams.challenge = Uint8Array.from(challengeDecoded, c => c.charCodeAt(0));
+  modifiedParams.user.id = Uint8Array.from(decodedUserId, c => c.charCodeAt(0));
 
   return modifiedParams;
 };
 
 const preformatGetAssertReq = (params) => {
-  params.challenge = base64url.decode(params.challenge);;
+  const challengeDecoded = window.atob(params.challenge);
+  params.challenge = Uint8Array.from(challengeDecoded, c => c.charCodeAt(0));
+
+  alert(JSON.stringify(params.allowCredentials));
 
   if(params.allowCredentials) {
     for(let allowCred of params.allowCredentials) {
