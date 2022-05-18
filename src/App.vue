@@ -12,7 +12,16 @@
     </header>
 
     <div class="login-box">
-      <input id="username" type="email" placeholder="seu@email.com" v-model="email"/>
+      <label for="username">
+        Email
+
+        <input
+          id="username"
+          type="email"
+          placeholder="seu@email.com"
+          v-model="email"
+        />
+      </label>
       <button
         id="btn-login"
         @click="registerWebAuthN()">
@@ -30,7 +39,7 @@
   </div>
 </template>
 
-<script src="./views/Home.js" />
+<script src="./views/Home.js"/>
 
 <style>
 * {
