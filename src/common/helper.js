@@ -40,13 +40,15 @@ const preformatGetAssertReq = (params) => {
   const challengeDecoded = window.atob(params.challenge);
   params.challenge = Uint8Array.from(challengeDecoded, c => c.charCodeAt(0));
 
-  if(params.allowCredentials) {
-    for (let allowCred of params.allowCredentials) {
-      const decodedCredentialId = window.atob(allowCred.id);
-      alert(decodedCredentialId);
-      allowCred.id = decodedCredentialId;
-    }
-  }
+  alert(JSON.stringify(params.allowCredentials));
+
+  // if(params.allowCredentials) {
+  //   for (let allowCred of params.allowCredentials) {
+  //     const decodedCredentialId = window.atob(allowCred.id);
+  //     alert(decodedCredentialId);
+  //     allowCred.id = decodedCredentialId;
+  //   }
+  // }
 
   return params;
 }
