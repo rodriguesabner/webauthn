@@ -42,7 +42,7 @@ const preformatGetAssertReq = (params) => {
 
   for (let allowCred of params.allowCredentials) {
     const decodedCredentialId = window.atob(allowCred.id);
-    allowCred.id = new Buffer(decodedCredentialId, 'base64');
+    allowCred.id = decodedCredentialId;
   }
 
   return params;
