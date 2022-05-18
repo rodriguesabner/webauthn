@@ -30,7 +30,7 @@ export default {
           email: this.email,
         });
 
-        const publicKey = preformatGetAssertReq(data);
+        const publicKey = preformatGetAssertReq(data, this.log);
         const assertion = await navigator.credentials.get({ publicKey });
 
         const makeCredResponse = publicKeyCredentialToJSON(assertion);
