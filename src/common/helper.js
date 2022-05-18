@@ -50,7 +50,6 @@ const preformatGetAssertReq = (params) => {
   return params;
 }
 
-
 function isPlatformWebAuthnSupport() {
   return new Promise((resolve) => {
     if (
