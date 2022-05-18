@@ -33,7 +33,13 @@
       Já tem uma conta? Clique aqui
     </button>
 
-    <p>
+    <p style="
+    max-width: 500px;
+    width: 100%;
+    overflow: auto;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #F2F4F6">
       {{ log }}
     </p>
   </div>
@@ -79,7 +85,7 @@ header {
 .login-box {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: end;
   margin-top: 2em;
   max-width: 250px;
 }
