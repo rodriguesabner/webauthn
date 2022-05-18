@@ -66,6 +66,7 @@ export default {
         console.log(responseData);
       } catch (e) {
         console.log(e);
+        this.log = JSON.stringify(`erro register: ${e.message}`, null, 2);
         alert('Ocorreu um erro, por favor, dê uma olhada no log.');
       }
     },
