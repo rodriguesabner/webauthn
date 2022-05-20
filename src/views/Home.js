@@ -36,6 +36,7 @@ export default {
           ...cred,
           id: base64url.decode(cred.credentialID.substr(0, 16)),
           type: 'public-key',
+
         }));
 
         this.log = 'Requesting credentials...';
