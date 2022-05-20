@@ -1,6 +1,5 @@
 import axios from 'axios';
 import {
-  preformatGetAssertReq,
   publicKeyCredentialToJSON, serializeUvm,
 } from '@/common/helper';
 import { base64url } from '@/common/base64url-arraybuffer';
@@ -9,6 +8,7 @@ export default {
   name: 'App',
   data() {
     return {
+      credentials: [],
       username: 'Abner Rodrigues',
       email: 'abner@gmail.com',
       password: 'abner',
@@ -29,18 +29,29 @@ export default {
   methods: {
     async login() {
       try {
-        const { data } = await this.api.post('/user/login', {
+        const { data: options } = await this.api.post('/user/login', {
           email: this.email,
           password: this.password,
         });
 
-        const publicKey = preformatGetAssertReq(data);
-        this.log = publicKey;
-        const assertion = await navigator.credentials.get({ publicKey });
+        const challenge = base64url.decode(options.challenge);
+
+        const allowCredentials = this.credentials.map((cred) => ({
+          ...cred,
+          id: base64url.decode(cred.id),
+        }));
+
+        const decodedOptions = {
+          ...options,
+          allowCredentials,
+          challenge,
+        };
+
+        const assertion = await navigator.credentials.get({ publicKey: decodedOptions });
 
         const makeCredResponse = publicKeyCredentialToJSON(assertion);
         this.log = makeCredResponse;
-        const { data: responseData } = await this.api.post('/user/response', {
+        const { data: responseData } = await this.api.post('/user/authResponse', {
           ...makeCredResponse,
         });
 
@@ -65,6 +76,8 @@ export default {
           ...options.user,
           id: base64url.decode(options.user.id),
         };
+
+        this.credentials.push(user);
         const challenge = base64url.decode(options.challenge);
 
         const decodedOptions = {
