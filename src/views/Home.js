@@ -35,6 +35,7 @@ export default {
         const allowCredentials = this.credentials.map((cred) => ({
           ...cred,
           id: base64url.decode(cred.credentialID.substr(0, 16)),
+          type: 'public-key',
         }));
 
         this.log = 'Requesting credentials...';
@@ -73,7 +74,6 @@ export default {
         const user = {
           ...options.user,
           id: base64url.decode(options.user.id),
-          type: 'public-key',
         };
 
         const challenge = base64url.decode(options.challenge);
