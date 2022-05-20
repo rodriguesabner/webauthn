@@ -62,6 +62,31 @@
     background-color: #F2F4F6">
       {{ log }}
     </p>
+
+    <div>
+      <h1>
+        Credenciais salvas
+      </h1>
+      <ul>
+        <li v-for="(credential, key) in credentials" :key="key">
+          <div>
+            <p>{{credential.credentialID}}</p>
+
+            <button>
+              Excluir
+            </button>
+          </div>
+          <p>Auth Type: {{ credential.type }}</p>
+          <p>Environment:
+            {{ `${credential.browser} / ${credential.os} / ${credential.platform}` }}
+          </p>
+          <p>Transports: N/A</p>
+          <p>Enrolled: {{ new Date(credential.registered).toLocaleString() }}</p>
+          <p>Public Key: {{ credential.credentialPublicKey }}</p>
+          <p>Credential ID: {{ credential.credentialID }}</p>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
