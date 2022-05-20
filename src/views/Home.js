@@ -73,6 +73,7 @@ export default {
         const user = {
           ...options.user,
           id: base64url.decode(options.user.id),
+          type: 'public-key',
         };
 
         const challenge = base64url.decode(options.challenge);
@@ -101,7 +102,6 @@ export default {
         }
         let transports = [];
 
-        // if `getTransports()` is supported, serialize the result.
         if (credential.response.getTransports) {
           transports = credential.response.getTransports();
         }
