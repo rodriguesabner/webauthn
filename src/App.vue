@@ -64,11 +64,15 @@
     </p>
 
     <div>
-      <h1>
+      <p style="margin-top: 2em;">
         Credenciais salvas
-      </h1>
-      <ul>
-        <li v-for="(credential, key) in credentials" :key="key">
+      </p>
+      <ul style="max-width: 500px; overflow: auto; min-height: 500px; padding: 2em;">
+        <li
+          v-for="(credential, key) in credentials"
+          :key="key"
+          style="padding: 10px; background-color: #F2F4F6"
+        >
           <div>
             <p>{{credential.credentialID}}</p>
 
