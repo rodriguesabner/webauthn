@@ -36,7 +36,7 @@ export default {
 
         const allowCredentials = this.credentials.map((cred) => ({
           ...cred,
-          id: base64url.decode(cred.id),
+          id: base64url.decode(cred.credentialID.substr(0, 16)),
         }));
 
         this.log = 'Requesting credentials...';
