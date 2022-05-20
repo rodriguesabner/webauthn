@@ -120,7 +120,6 @@ export default {
           clientExtensionResults,
         };
 
-        this.credentials.push(encodedCredential);
         this.log = JSON.stringify(encodedCredential, null, 2);
 
         console.log('[AttestationCredential]', encodedCredential);
