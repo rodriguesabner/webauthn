@@ -67,7 +67,7 @@
       <p style="margin-top: 2em;">
         Credenciais salvas
       </p>
-      <ul style="max-width: 500px; padding: 2em; overflow: auto; width: 100%">
+      <ul style="max-width: 500px; padding: 2em; width: 100%">
         <li
           v-for="(credential, key) in credentials"
           :key="key"
