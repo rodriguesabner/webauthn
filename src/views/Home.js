@@ -39,6 +39,8 @@ export default {
           id: base64url.decode(cred.id),
         }));
 
+        this.log = 'Requesting credentials...';
+
         const decodedOptions = {
           ...options,
           allowCredentials,
@@ -120,6 +122,7 @@ export default {
         };
 
         this.credentials.push(encodedCredential);
+        this.log = JSON.stringify(encodedCredential, null, 2);
 
         console.log('[AttestationCredential]', encodedCredential);
 
