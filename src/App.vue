@@ -83,7 +83,7 @@
           style="
           padding: 10px;
           margin-bottom: 1em;
-border-radius: 4px;
+          border-radius: 4px;
 "
         >
           <div>
@@ -118,7 +118,7 @@ border-radius: 4px;
 }
 
 #app {
-  display: flex;
+  display: block;
   flex-direction: column;
   font-family: 'Roboto', sans-serif;
   padding: 2em;
