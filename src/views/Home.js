@@ -1,7 +1,5 @@
 import axios from 'axios';
-import {
-  publicKeyCredentialToJSON, serializeUvm,
-} from '@/common/helper';
+import { publicKeyCredentialToJSON, serializeUvm } from '@/common/helper';
 import { base64url } from '@/common/base64url-arraybuffer';
 
 export default {
@@ -120,6 +118,8 @@ export default {
           transports,
           clientExtensionResults,
         };
+
+        this.credentials.push(encodedCredential);
 
         console.log('[AttestationCredential]', encodedCredential);
 
