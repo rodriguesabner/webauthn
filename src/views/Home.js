@@ -77,7 +77,6 @@ export default {
           id: base64url.decode(options.user.id),
         };
 
-        this.credentials.push(user);
         const challenge = base64url.decode(options.challenge);
 
         const decodedOptions = {
@@ -128,6 +127,7 @@ export default {
 
         const { data: responseData } = await this.api.post('/user/response', { ...encodedCredential });
 
+        this.credentials.push(responseData);
         console.log(responseData);
       } catch (e) {
         console.log(e);
