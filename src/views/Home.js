@@ -8,7 +8,7 @@ export default {
   name: 'App',
   data() {
     return {
-      username: '',
+      username: 'Abner Rodrigues',
       email: 'abner@gmail.com',
       password: 'abner',
       credential: null,
@@ -52,7 +52,8 @@ export default {
     async registerWebAuthN() {
       try {
         const { data } = await this.api.post('/user/register', {
-          email: this.email,
+          name: this.email,
+          displayName: this.username,
         });
 
         const publicKey = preformatMakeCredReq(data);

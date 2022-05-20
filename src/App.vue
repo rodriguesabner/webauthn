@@ -13,6 +13,16 @@
 
     <div class="login-box">
       <label for="username">
+        Nome
+
+        <input
+          id="username"
+          placeholder="Seu nome"
+          v-model="username"
+        />
+      </label>
+
+      <label for="username">
         Email
 
         <input
