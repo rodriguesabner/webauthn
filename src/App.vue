@@ -67,11 +67,11 @@
       <p style="margin-top: 2em;">
         Credenciais salvas
       </p>
-      <ul style="max-width: 500px; min-height: 500px; padding: 2em;">
+      <ul style="max-width: 500px; padding: 2em; overflow: auto; width: 100%">
         <li
           v-for="(credential, key) in credentials"
           :key="key"
-          style="padding: 10px; background-color: #F2F4F6"
+          style="padding: 10px; background-color: #F2F4F6; width: 100%;"
         >
           <div>
             <p>{{credential.credentialID}}</p>
