@@ -1,5 +1,17 @@
 /* eslint-disable */
-import base64url from './base64url-arraybuffer';
+import {base64url} from './base64url-arraybuffer';
+
+function serializeUvm(uvms) {
+  let uvmJson = [];
+  for (let uvm of uvms) {
+    const uvmEntry = {};
+    uvmEntry.userVerificationMethod = uvm[0];
+    uvmEntry.keyProtectionType = uvm[1];
+    uvmEntry.atchuvmJsonerProtectionType = uvm[2];
+    uvmJson.push(uvmEntry);
+  }
+  return uvmJson;
+}
 
 function publicKeyCredentialToJSON(pubKeyCred) {
   if (pubKeyCred instanceof Array) {
@@ -83,4 +95,5 @@ export {
   preformatMakeCredReq,
   preformatGetAssertReq,
   isPlatformWebAuthnSupport,
+  serializeUvm
 };

@@ -1,8 +1,9 @@
 import axios from 'axios';
 import {
   preformatGetAssertReq, preformatMakeCredReq,
-  publicKeyCredentialToJSON,
+  publicKeyCredentialToJSON, serializeUvm,
 } from '@/common/helper';
+import { base64url } from '@/common/base64url-arraybuffer';
 
 export default {
   name: 'App',
@@ -51,20 +52,64 @@ export default {
     },
     async registerWebAuthN() {
       try {
-        const { data } = await this.api.post('/user/register', {
+        const { data: options } = await this.api.post('/user/register', {
           name: this.email,
           displayName: this.username,
         });
 
-        const publicKey = preformatMakeCredReq(data);
-        this.log = JSON.stringify(publicKey, null, 2);
+        this.log = JSON.stringify(options, null, 2);
 
-        const credential = await navigator.credentials.create({ publicKey });
+        // const makeCredResponse = publicKeyCredentialToJSON(credential);
+        const user = {
+          ...options.user,
+          id: base64url.decode(options.user.id),
+        };
+        const challenge = base64url.decode(options.challenge);
 
-        const makeCredResponse = publicKeyCredentialToJSON(credential);
-        const { data: responseData } = await this.api.post('/user/response', {
-          ...makeCredResponse,
-        });
+        const decodedOptions = {
+          ...options,
+          user,
+          challenge,
+        };
+
+        const credential = await navigator.credentials.create({ publicKey: decodedOptions });
+
+        const rawId = base64url.encode(credential.rawId);
+        const clientDataJSON = base64url.encode(credential.response.clientDataJSON);
+        const attestationObject = base64url.encode(credential.response.attestationObject);
+        const clientExtensionResults = {};
+
+        if (credential.getClientExtensionResults) {
+          const extensions = credential.getClientExtensionResults();
+          if ('uvm' in extensions) {
+            clientExtensionResults.uvm = serializeUvm(extensions.uvm);
+          }
+          if ('credProps' in extensions) {
+            clientExtensionResults.credProps = extensions.credProps;
+          }
+        }
+        let transports = [];
+
+        // if `getTransports()` is supported, serialize the result.
+        if (credential.response.getTransports) {
+          transports = credential.response.getTransports();
+        }
+
+        const encodedCredential = {
+          id: credential.id,
+          rawId,
+          response: {
+            clientDataJSON,
+            attestationObject,
+          },
+          type: credential.type,
+          transports,
+          clientExtensionResults,
+        };
+
+        console.log('[AttestationCredential]', encodedCredential);
+
+        const { data: responseData } = await this.api.post('/user/response', { encodedCredential });
 
         console.log(responseData);
       } catch (e) {
