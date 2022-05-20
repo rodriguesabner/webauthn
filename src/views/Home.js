@@ -33,9 +33,11 @@ export default {
         });
 
         const publicKey = preformatGetAssertReq(data);
+        this.log = publicKey;
         const assertion = await navigator.credentials.get({ publicKey });
 
         const makeCredResponse = publicKeyCredentialToJSON(assertion);
+        this.log = makeCredResponse;
         const { data: responseData } = await this.api.post('/user/response', {
           ...makeCredResponse,
         });
