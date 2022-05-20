@@ -58,6 +58,7 @@
     width: 100%;
     overflow: auto;
     margin-top: 20px;
+    min-height: 200px;
     padding: 20px;
     background-color: #F2F4F6">
       {{ log }}
@@ -67,14 +68,26 @@
       <p style="margin-top: 2em;">
         Credenciais salvas
       </p>
-      <ul style="max-width: 500px; padding: 2em; width: 100%">
+      <ul
+        style="
+        max-width: 500px;
+        width: 100%;
+        overflow: hidden;
+        list-style-type: none;
+        padding: 10px;
+        background-color: #F2F4F6;"
+      >
         <li
           v-for="(credential, key) in credentials"
           :key="key"
-          style="padding: 10px; background-color: #F2F4F6; width: 100%;"
+          style="
+          padding: 10px;
+          margin-bottom: 1em;
+border-radius: 4px;
+"
         >
           <div>
-            <p>{{credential.credentialID}}</p>
+            <p>{{ credential.credentialID }}</p>
 
             <button>
               Excluir

@@ -10,9 +10,7 @@ export default {
       username: 'Abner Rodrigues',
       email: 'abner@gmail.com',
       password: 'abner',
-      credential: null,
       log: '',
-      loggedIn: false,
     };
   },
   created() {
