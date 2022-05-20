@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {
-  preformatGetAssertReq, preformatMakeCredReq,
+  preformatGetAssertReq,
   publicKeyCredentialToJSON, serializeUvm,
 } from '@/common/helper';
 import { base64url } from '@/common/base64url-arraybuffer';
