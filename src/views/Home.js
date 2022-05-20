@@ -109,7 +109,7 @@ export default {
 
         console.log('[AttestationCredential]', encodedCredential);
 
-        const { data: responseData } = await this.api.post('/user/response', { encodedCredential });
+        const { data: responseData } = await this.api.post('/user/response', { ...encodedCredential });
 
         console.log(responseData);
       } catch (e) {
