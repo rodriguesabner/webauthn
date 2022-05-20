@@ -20,6 +20,7 @@ export default {
   created() {
     this.api = axios.create({
       baseURL: 'https://a94f-2804-431-e7c3-96e-f489-9622-bb6c-7320.sa.ngrok.io',
+      withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
       },
