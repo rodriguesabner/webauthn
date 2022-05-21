@@ -15,7 +15,7 @@ export default {
   },
   created() {
     this.api = axios.create({
-      baseURL: 'https://rodriguesabner-webauthn-server-49w9wp6v25jq7-8002.githubpreview.dev',
+      baseURL: 'https://rodriguesabner-webauthn-server-67474xw535r75-8002.githubpreview.dev',
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
