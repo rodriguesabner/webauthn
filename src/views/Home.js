@@ -25,19 +25,19 @@ export default {
   methods: {
     async login() {
       try {
-        const { data: options } = await this.api.post('/user/login', {
-          email: this.email,
-          password: this.password,
-        });
-
-        const challenge = base64url.decode(options.challenge);
-
         const allowCredentials = this.credentials.map((cred) => ({
           ...cred,
           id: base64url.decode(cred.credentialID.substr(0, 16)),
           type: 'public-key',
-
         }));
+
+        const { data: options } = await this.api.post('/user/login', {
+          email: this.email,
+          allowCredentials,
+          password: this.password,
+        });
+
+        const challenge = base64url.decode(options.challenge);
 
         this.log = 'Requesting credentials...';
 
