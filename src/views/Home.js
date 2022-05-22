@@ -22,7 +22,7 @@ export default {
       },
     });
 
-    this.credentials = await this.api.get('/credentials', {
+    this.credentials = await this.api.get('/user/credentials', {
       params: {
         email: this.email,
       },
