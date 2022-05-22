@@ -22,11 +22,13 @@ export default {
       },
     });
 
-    this.credentials = await this.api.get('/user/credentials', {
+    const { data } = await this.api.get('/user/credentials', {
       params: {
         email: this.email,
       },
     });
+
+    this.credentials = data;
   },
   methods: {
     async login() {
