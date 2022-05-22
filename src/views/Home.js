@@ -13,12 +13,18 @@ export default {
       log: '',
     };
   },
-  created() {
+  async created() {
     this.api = axios.create({
       baseURL: 'https://d6d4-2804-431-e7c3-96e-e3d8-acac-2a74-ad0d.sa.ngrok.io',
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
+      },
+    });
+
+    this.credentials = await this.api.get('/credentials', {
+      params: {
+        email: this.email,
       },
     });
   },
