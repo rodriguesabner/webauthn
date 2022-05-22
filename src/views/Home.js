@@ -33,15 +33,8 @@ export default {
   methods: {
     async login() {
       try {
-        const allowCredentials = this.credentials.map((cred) => ({
-          ...cred,
-          id: base64url.decode(cred.credentialID.substr(0, 16)),
-          type: 'public-key',
-        }));
-
         const { data: options } = await this.api.post('/user/login', {
           email: this.email,
-          allowCredentials,
           password: this.password,
         });
 
@@ -49,21 +42,46 @@ export default {
 
         this.log = 'Requesting credentials...';
 
+        const allowCredentials = this.credentials.map((cred) => ({
+          ...cred,
+          id: base64url.decode(cred.credentialID.substr(0, 16)),
+        }));
+
         const decodedOptions = {
           ...options,
           allowCredentials,
           challenge,
         };
 
-        const assertion = await navigator.credentials.get({ publicKey: decodedOptions });
-
-        const makeCredResponse = publicKeyCredentialToJSON(assertion);
-        this.log = makeCredResponse;
-        const { data: responseData } = await this.api.post('/user/authResponse', {
-          ...makeCredResponse,
+        const credential = await navigator.credentials.get({
+          publicKey: decodedOptions,
         });
 
-        console.log(responseData);
+        // Encode the credential.
+        const rawId = base64url.encode(credential.rawId);
+        const authenticatorData = base64url.encode(credential.response.authenticatorData);
+        const clientDataJSON = base64url.encode(credential.response.clientDataJSON);
+        const signature = base64url.encode(credential.response.signature);
+        const userHandle = credential.response.userHandle
+          ? base64url.encode(credential.response.userHandle) : undefined;
+
+        const encodedCredential = {
+          id: credential.id,
+          rawId,
+          response: {
+            authenticatorData,
+            clientDataJSON,
+            signature,
+            userHandle,
+          },
+          type: credential.type,
+          clientExtensionResults: [],
+        };
+
+        this.log = `'[AssertionCredential] -> ${encodedCredential}`;
+        await this.api.post('/user/authResponse', {
+          ...encodedCredential,
+        });
       } catch (e) {
         console.log(e);
         this.log = JSON.stringify(`erro login: ${e.message}`, null, 2);
