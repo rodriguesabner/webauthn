@@ -91,9 +91,13 @@ export default {
     },
     async registerWebAuthN() {
       try {
+        const opts = {};
+        opts.authenticatorSelection.authenticatorAttachment = 'platform';
+        opts.authenticatorSelection.userVerification = 'required';
         const { data: options } = await this.api.post('/user/register', {
           name: this.email,
           displayName: this.username,
+          ...opts,
         });
 
         this.log = JSON.stringify(options, null, 2);
