@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { publicKeyCredentialToJSON, serializeUvm } from '@/common/helper';
+import { serializeUvm } from '@/common/helper';
 import { base64url } from '@/common/base64url-arraybuffer';
 
 export default {
