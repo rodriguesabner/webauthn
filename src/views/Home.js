@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { serializeUvm } from '@/common/helper';
 import { base64url } from '@/common/base64url-arraybuffer';
-import { solveLoginChallenge, solveRegistrationChallenge } from '@webauthn/client';
 
 export default {
   name: 'App',
