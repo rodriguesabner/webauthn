@@ -42,7 +42,7 @@ export default {
 
         const challenge = base64url.decode(options.challenge);
 
-        this.log = 'Requesting credentials...';
+        this.log = challenge;
 
         const allowCredentials = this.credentials.map((cred) => ({
           ...cred,
