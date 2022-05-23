@@ -14,14 +14,14 @@ export default {
   },
   async created() {
     this.api = axios.create({
-      baseURL: 'https://6fdf-2804-431-e7c3-38ac-5c3c-4795-9d62-a692.sa.ngrok.io',
+      baseURL: 'https://c31e-2804-431-e7c3-38ac-5c3c-4795-9d62-a692.sa.ngrok.io',
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
       },
     });
 
-    const { data } = await this.api.get('/user/credentials', {
+    const { data } = await this.api.get('/credentials', {
       params: {
         email: this.email,
       },
@@ -32,7 +32,7 @@ export default {
   methods: {
     async login() {
       try {
-        const { data: options } = await this.api.post('/user/login', {
+        const { data: options } = await this.api.post('/login', {
           name: this.email,
         });
 
@@ -45,7 +45,7 @@ export default {
         }
 
         this.log = `'[AssertionCredential] -> ${asseResp}`;
-        await this.api.post('/user/authResponse', {
+        await this.api.post('/authResponse', {
           ...asseResp,
         });
 
@@ -65,7 +65,7 @@ export default {
             userVerification: 'required',
           },
         });
-        const { data: options } = await this.api.post('/user/register', {
+        const { data: options } = await this.api.post('/register', {
           name: this.email,
           displayName: this.username,
           ...opts,
@@ -90,7 +90,7 @@ export default {
 
         console.log('[AttestationCredential]', attResp);
 
-        const { data: responseData } = await this.api.post('/user/response', { ...attResp });
+        const { data: responseData } = await this.api.post('/response', { ...attResp });
 
         this.credentials.push(responseData);
         console.log(responseData);
