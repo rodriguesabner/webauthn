@@ -35,9 +35,6 @@ export default {
       try {
         const { data: options } = await this.api.post('/user/login', {
           name: this.email,
-          extensions: {
-            uvm: true,
-          },
         });
 
         const challenge = base64url.decode(options.challenge);
@@ -46,7 +43,6 @@ export default {
 
         const allowCredentials = this.credentials.map((cred) => ({
           ...cred,
-          id: cred.credentialID.substr(0, 16),
           type: 'public-key',
         }));
 
