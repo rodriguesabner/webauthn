@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { serializeUvm } from '@/common/helper';
-import { base64url } from '@/common/base64url-arraybuffer';
+import { startAuthentication, startRegistration } from '@simplewebauthn/browser';
 
 export default {
   name: 'App',
@@ -37,50 +36,20 @@ export default {
           name: this.email,
         });
 
-        const challenge = base64url.decode(options.challenge);
+        let asseResp;
+        try {
+          asseResp = await startAuthentication(options);
+        } catch (e) {
+          this.log = e;
+          console.log(e);
+        }
 
-        this.log = challenge;
-
-        const allowCredentials = this.credentials.map((cred) => ({
-          ...cred,
-          type: 'public-key',
-        }));
-
-        const decodedOptions = {
-          ...options,
-          allowCredentials,
-          challenge,
-        };
-
-        const credential = await navigator.credentials.get({
-          publicKey: decodedOptions,
-        });
-
-        // Encode the credential.
-        const rawId = base64url.encode(credential.rawId);
-        const authenticatorData = base64url.encode(credential.response.authenticatorData);
-        const clientDataJSON = base64url.encode(credential.response.clientDataJSON);
-        const signature = base64url.encode(credential.response.signature);
-        const userHandle = credential.response.userHandle
-          ? base64url.encode(credential.response.userHandle) : undefined;
-
-        const encodedCredential = {
-          id: credential.id,
-          rawId,
-          response: {
-            authenticatorData,
-            clientDataJSON,
-            signature,
-            userHandle,
-          },
-          type: credential.type,
-          clientExtensionResults: [],
-        };
-
-        this.log = `'[AssertionCredential] -> ${encodedCredential}`;
+        this.log = `'[AssertionCredential] -> ${asseResp}`;
         await this.api.post('/user/authResponse', {
-          ...encodedCredential,
+          ...asseResp,
         });
+
+        alert('oláaaaaaa a´t euq enfim');
       } catch (e) {
         console.log(e);
         this.log = JSON.stringify(`erro login: ${e.message}`, null, 2);
@@ -104,59 +73,24 @@ export default {
 
         this.log = JSON.stringify(options, null, 2);
 
-        // const makeCredResponse = publicKeyCredentialToJSON(credential);
-        const user = {
-          ...options.user,
-          id: base64url.decode(options.user.id),
-        };
-
-        const challenge = base64url.decode(options.challenge);
-
-        const decodedOptions = {
-          ...options,
-          user,
-          challenge,
-        };
-
-        const credential = await navigator.credentials.create({ publicKey: decodedOptions });
-
-        const rawId = base64url.encode(credential.rawId);
-        const clientDataJSON = base64url.encode(credential.response.clientDataJSON);
-        const attestationObject = base64url.encode(credential.response.attestationObject);
-        const clientExtensionResults = {};
-
-        if (credential.getClientExtensionResults) {
-          const extensions = credential.getClientExtensionResults();
-          if ('uvm' in extensions) {
-            clientExtensionResults.uvm = serializeUvm(extensions.uvm);
+        let attResp;
+        try {
+          // Pass the options to the authenticator and wait for a response
+          attResp = await startRegistration(options);
+        } catch (error) {
+          // Some basic error handling
+          if (error.name === 'InvalidStateError') {
+            this.log = 'Error: Authenticator was probably already registered by user';
+          } else {
+            this.log = error;
           }
-          if ('credProps' in extensions) {
-            clientExtensionResults.credProps = extensions.credProps;
-          }
-        }
-        let transports = [];
 
-        if (credential.response.getTransports) {
-          transports = credential.response.getTransports();
+          throw error;
         }
 
-        const encodedCredential = {
-          id: credential.id,
-          rawId,
-          response: {
-            clientDataJSON,
-            attestationObject,
-          },
-          type: credential.type,
-          transports,
-          clientExtensionResults,
-        };
+        console.log('[AttestationCredential]', attResp);
 
-        this.log = JSON.stringify(encodedCredential, null, 2);
-
-        console.log('[AttestationCredential]', encodedCredential);
-
-        const { data: responseData } = await this.api.post('/user/response', { ...encodedCredential });
+        const { data: responseData } = await this.api.post('/user/response', { ...attResp });
 
         this.credentials.push(responseData);
         console.log(responseData);

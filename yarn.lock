@@ -1078,6 +1078,11 @@
   resolved "https://registry.yarnpkg.com/@sideway/pinpoint/-/pinpoint-2.0.0.tgz#cff8ffadc372ad29fd3f78277aeb29e632cc70df"
   integrity sha512-RNiOoTPkptFtSVzQevY/yWtZwf/RxyVnPy/OcA9HBM3MlGDnBEYL5B41H0MTn0Uec8Hi+2qUtTfG2WWZBmMejQ==
 
+"@simplewebauthn/browser@^5.2.1":
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/@simplewebauthn/browser/-/browser-5.2.1.tgz#569252a9f235a99aae90c4d1cc6c441f42637b8e"
+  integrity sha512-TxL3OPHJf57hmnfQoF3zRIQWEdsJLxrA9NcGdRK0sB/h3jd13kpGQonBtMnj4YBQnWTtRDZ804wlpI9IEMaJ9g==
+
 "@soda/friendly-errors-webpack-plugin@^1.8.0":
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/@soda/friendly-errors-webpack-plugin/-/friendly-errors-webpack-plugin-1.8.1.tgz#4d4fbb1108993aaa362116247c3d18188a2c6c85"
