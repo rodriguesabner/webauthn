@@ -34,6 +34,7 @@ export default {
     async login() {
       try {
         const { data: options } = await this.api.post('/user/login', {
+          name: this.email,
           extensions: {
             uvm: true,
           },
