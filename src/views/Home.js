@@ -33,21 +33,24 @@ export default {
   methods: {
     async login() {
       try {
-        const allowCredentials = this.credentials.map((cred) => ({
-          ...cred,
-          id: cred.credentialID.substr(0, 16),
-          type: 'public-key',
-        }));
-
         const { data: options } = await this.api.post('/user/login', {
-          email: this.email,
-          password: this.password,
-          allowCredentials,
+          extensions: {
+            uvm: serializeUvm({
+              username: this.username,
+              password: this.password,
+            }),
+          },
         });
 
         const challenge = base64url.decode(options.challenge);
 
         this.log = 'Requesting credentials...';
+
+        const allowCredentials = this.credentials.map((cred) => ({
+          ...cred,
+          id: cred.credentialID.substr(0, 16),
+          type: 'public-key',
+        }));
 
         const decodedOptions = {
           ...options,
