@@ -35,10 +35,7 @@ export default {
       try {
         const { data: options } = await this.api.post('/user/login', {
           extensions: {
-            uvm: serializeUvm({
-              username: this.username,
-              password: this.password,
-            }),
+            uvm: true,
           },
         });
 
