@@ -1,59 +1,60 @@
 <template>
   <div id="app">
-    <header>
-      <img alt="biometric" style="width: 200px"
-           src="https://www.creativefabrica.com/wp-content/uploads/2021/06/03/Biometric-Fingerprint-Scanning-Icon-Graphics-12873794-1-1-580x386.jpg"/>
-      <h1 style="text-align: center">
-        Entrar com Biometria
-      </h1>
-      <p style="margin-top: 10px; color: #777; text-align: center">
-        Entre rapidamente em sua conta usando sua biometria
-      </p>
-    </header>
+    <div id="container">
+      <header>
+        <img alt="biometric" style="width: 200px"
+             src="https://www.creativefabrica.com/wp-content/uploads/2021/06/03/Biometric-Fingerprint-Scanning-Icon-Graphics-12873794-1-1-580x386.jpg"/>
+        <h1 style="text-align: center">
+          Entrar com Biometria
+        </h1>
+        <p style="margin-top: 10px; color: #777; text-align: center">
+          Entre rapidamente em sua conta usando sua biometria
+        </p>
+      </header>
 
-    <div class="login-box">
-      <label for="username">
-        Nome
+      <div class="login-box">
+        <label for="username">
+          Nome
 
-        <input
-          id="username"
-          placeholder="Seu nome"
-          v-model="username"
-        />
-      </label>
+          <input
+            id="username"
+            placeholder="Seu nome"
+            v-model="username"
+          />
+        </label>
 
-      <label for="username">
-        Email
+        <label for="username">
+          Email
 
-        <input
-          id="username"
-          type="email"
-          placeholder="seu@email.com"
-          v-model="email"
-        />
-      </label>
-      <label for="username">
-        Senha
+          <input
+            id="username"
+            type="email"
+            placeholder="seu@email.com"
+            v-model="email"
+          />
+        </label>
+        <label for="username">
+          Senha
 
-        <input
-          id="username"
-          type="password"
-          placeholder="senha"
-          v-model="password"
-        />
-      </label>
-      <button
-        id="btn-login"
-        @click="registerWebAuthN()">
-        Registrar
+          <input
+            id="username"
+            type="password"
+            placeholder="senha"
+            v-model="password"
+          />
+        </label>
+        <button
+          id="btn-login"
+          @click="registerWebAuthN()">
+          Registrar
+        </button>
+      </div>
+
+      <button id="already-account" @click="login()">
+        Já tem uma conta? Clique aqui
       </button>
-    </div>
 
-    <button id="already-account" @click="login()">
-      Já tem uma conta? Clique aqui
-    </button>
-
-    <p style="
+      <p style="
     max-width: 500px;
     width: 100%;
     overflow: auto;
@@ -61,48 +62,49 @@
     min-height: 200px;
     padding: 20px;
     background-color: #F2F4F6">
-      {{ log }}
-    </p>
-
-    <div>
-      <p style="margin-top: 2em;">
-        Credenciais salvas
+        {{ log }}
       </p>
-      <ul
-        style="
+
+      <div>
+        <p style="margin-top: 2em;">
+          Credenciais salvas
+        </p>
+        <ul
+          style="
         max-width: 500px;
         width: 100%;
         overflow: hidden;
         list-style-type: none;
         padding: 10px;
         background-color: #F2F4F6;"
-      >
-        <li
-          v-for="(credential, key) in credentials"
-          :key="key"
-          style="
+        >
+          <li
+            v-for="(credential, key) in credentials"
+            :key="key"
+            style="
           padding: 10px;
           margin-bottom: 1em;
           border-radius: 4px;
 "
-        >
-          <div>
-            <p>{{ credential.credentialID }}</p>
+          >
+            <div>
+              <p>{{ credential.credentialID }}</p>
 
-            <button>
-              Excluir
-            </button>
-          </div>
-          <p>Auth Type: {{ credential.type }}</p>
-          <p>Environment:
-            {{ `${credential.browser} / ${credential.os} / ${credential.platform}` }}
-          </p>
-          <p>Transports: N/A</p>
-          <p>Enrolled: {{ new Date(credential.registered).toLocaleString() }}</p>
-          <p>Public Key: {{ credential.credentialPublicKey }}</p>
-          <p>Credential ID: {{ credential.credentialID }}</p>
-        </li>
-      </ul>
+              <button>
+                Excluir
+              </button>
+            </div>
+            <p>Auth Type: {{ credential.type }}</p>
+            <p>Environment:
+              {{ `${credential.browser} / ${credential.os} / ${credential.platform}` }}
+            </p>
+            <p>Transports: N/A</p>
+            <p>Enrolled: {{ new Date(credential.registered).toLocaleString() }}</p>
+            <p>Public Key: {{ credential.credentialPublicKey }}</p>
+            <p>Credential ID: {{ credential.credentialID }}</p>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -127,6 +129,14 @@
   align-items: center;
   width: 100%;
   height: 100vh;
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 #root > div {
