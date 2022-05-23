@@ -35,7 +35,7 @@ export default {
       try {
         const allowCredentials = this.credentials.map((cred) => ({
           ...cred,
-          id: base64url.decode(cred.credentialID.substr(0, 16)),
+          id: cred.credentialID.substr(0, 16),
           type: 'public-key',
         }));
 
