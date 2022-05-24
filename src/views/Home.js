@@ -60,7 +60,7 @@ export default {
 
         this.log += '---------------------------------------------\n';
         this.log += `'[AssertionCredential] -> ${JSON.stringify(asseResp, null, 2)}`;
-        const { data: userInfo } = await this.api.post('/authResponse', {
+        const { data: userInfo } = await this.api.put('/login-response', {
           ...asseResp,
         });
 
@@ -103,7 +103,7 @@ export default {
         this.log += '---------------------------------------------\n';
         this.log += `'[AttestationCredential]', ${JSON.stringify(attResp, null, 2)}`;
 
-        const { data: responseData } = await this.api.post('/response', { ...attResp });
+        const { data: responseData } = await this.api.put('/register-response', { ...attResp });
 
         this.credentials.push(responseData);
         console.log(responseData);
