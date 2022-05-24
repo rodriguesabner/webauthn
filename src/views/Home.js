@@ -15,7 +15,7 @@ export default {
   },
   async created() {
     this.api = axios.create({
-      baseURL: 'https://349c-2804-431-e7c3-38ac-7d9d-12a4-6f3-ace.sa.ngrok.io/user',
+      baseURL: 'https://be4b-2804-431-e7c3-38ac-102f-f143-6a91-2cb0.sa.ngrok.io/user',
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ export default {
           name: this.email,
         });
 
-        options.challenge = base64url.decode(options.challenge);
+        // options.challenge = base64url.decode(options.challenge);
 
         let asseResp;
         try {
