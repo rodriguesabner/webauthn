@@ -1,6 +1,6 @@
 <template>
   <div id="modal-container" v-if="show">
-    <div>
+    <div class="modal-header">
       <h2>
         Credenciais Salvas
       </h2>
@@ -10,17 +10,8 @@
       </button>
     </div>
 
-    <div>
-      <ul
-        style="
-        max-width: 500px;
-        width: 100%;
-        overflow: hidden;
-        list-style-type: none;
-        padding: 10px;
-        margin-top: 1em;
-        background-color: #F2F4F6;"
-      >
+    <div class="modal-content">
+      <ul>
         <li
           v-for="(credential, key) in credentials"
           :key="key"
@@ -30,10 +21,23 @@
           border-radius: 4px;
 "
         >
-          <div>
-            <p>{{ credential.credentialID }}</p>
+          <div
+            style="
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            justify-content: space-between;
+            background-color: #F2F4F6;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-radius: 4px;
+            border-bottom: 1px solid #ccc"
+          >
+            <p style="font-weight: 500">
+              {{ credential.credentialID != null ? credential.credentialID.substr(0, 10) : "" }}
+            </p>
 
-            <button>
+            <button style="background-color: #e61c4e; color: #fff; padding: 7px 10px">
               Excluir
             </button>
           </div>
@@ -79,8 +83,10 @@ export default {
   bottom: 0;
   top: 0;
   padding: 1em 2em;
+  overflow: auto;
 }
-#modal-container div {
+
+.modal-header {
   background-color: #fff;
   display: flex;
   align-items: center;
@@ -100,9 +106,25 @@ export default {
 }
 
 #modal-container p {
+  color: #000;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
   background-color: #F2F4F6;
   margin-top: 2em;
-  padding: 10px;
-  border-radius: 5px;
+}
+
+ul {
+  background-color: #fff;
+}
+
+li {
+  background-color: #F2F4F6;
+}
+
+li p {
+  background-color: #F2F4F6;
 }
 </style>

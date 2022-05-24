@@ -42,6 +42,7 @@ export default {
   bottom: 0;
   top: 0;
   padding: 1em 2em;
+  overflow: auto;
 }
 #modal-container div {
   background-color: #fff;
@@ -68,4 +69,5 @@ export default {
   padding: 10px;
   border-radius: 5px;
 }
+
 </style>
