@@ -88,7 +88,7 @@ export default {
           throw error;
         }
 
-        console.log('[AttestationCredential]', attResp);
+        this.log = `'[AttestationCredential]', ${JSON.stringify(attResp)}`;
 
         const { data: responseData } = await this.api.post('/response', { ...attResp });
 
