@@ -44,7 +44,7 @@ export default {
           console.log(e);
         }
 
-        this.log = `'[AssertionCredential] -> ${asseResp}`;
+        this.log = `'[AssertionCredential] -> ${JSON.stringify(asseResp)}`;
         await this.api.post('/authResponse', {
           ...asseResp,
         });
