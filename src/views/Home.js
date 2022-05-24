@@ -60,11 +60,11 @@ export default {
 
         this.log += '---------------------------------------------\n';
         this.log += `'[AssertionCredential] -> ${JSON.stringify(asseResp, null, 2)}`;
-        await this.api.post('/authResponse', {
+        const { data: userInfo } = await this.api.post('/authResponse', {
           ...asseResp,
         });
 
-        alert('oláaaaaaa a´t euq enfim');
+        alert(`olá ${userInfo.displayName}`);
       } catch (e) {
         this.log += '---------------------------------------------\n';
         this.log += JSON.stringify(`erro login: ${e.message}`, null, 2);
