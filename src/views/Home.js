@@ -40,11 +40,11 @@ export default {
         try {
           asseResp = await startAuthentication(options);
         } catch (e) {
-          this.log = e;
+          this.log = `${JSON.stringify(e, null, 2)}`;
           console.log(e);
         }
 
-        this.log = `'[AssertionCredential] -> ${JSON.stringify(asseResp)}`;
+        this.log = `'[AssertionCredential] -> ${JSON.stringify(asseResp, null, 2)}`;
         await this.api.post('/authResponse', {
           ...asseResp,
         });
@@ -52,7 +52,7 @@ export default {
         alert('oláaaaaaa a´t euq enfim');
       } catch (e) {
         console.log(e);
-        // this.log = JSON.stringify(`erro login: ${e.message}`, null, 2);
+        this.log = JSON.stringify(`erro login: ${e.message}`, null, 2);
         alert('Ocorreu um erro, por favor, dê uma olhada no log.');
       }
     },
@@ -75,20 +75,16 @@ export default {
 
         let attResp;
         try {
-          // Pass the options to the authenticator and wait for a response
           attResp = await startRegistration(options);
         } catch (error) {
-          // Some basic error handling
           if (error.name === 'InvalidStateError') {
-            // this.log = 'Error: Authenticator was probably already registered by user';
+            this.log = 'Error: Authenticator was probably already registered by user';
           } else {
-            // this.log = error;
+            this.log = error;
           }
-
-          // throw error;
         }
 
-        this.log = `'[AttestationCredential]', ${JSON.stringify(attResp)}`;
+        this.log = `'[AttestationCredential]', ${JSON.stringify(attResp, null, 2)}`;
 
         const { data: responseData } = await this.api.post('/response', { ...attResp });
 
@@ -96,7 +92,7 @@ export default {
         console.log(responseData);
       } catch (e) {
         console.log(e);
-        // this.log = JSON.stringify(`erro register: ${e.message}`, null, 2);
+        this.log = JSON.stringify(`erro register: ${e.message}`, null, 2);
         alert('Ocorreu um erro, por favor, dê uma olhada no log.');
       }
     },
