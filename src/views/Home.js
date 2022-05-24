@@ -6,8 +6,8 @@ export default {
   data() {
     return {
       credentials: [],
-      username: 'Abner Rodrigues',
-      email: 'abner@gmail.com',
+      displayName: 'Abner Rodrigues',
+      nameEmailUnique: 'abner@gmail.com',
       password: 'abner',
       log: '',
     };
@@ -23,7 +23,7 @@ export default {
 
     const { data } = await this.api.get('/credentials', {
       params: {
-        email: this.email,
+        email: this.nameEmailUnique,
       },
     });
 
@@ -33,7 +33,7 @@ export default {
     async login() {
       try {
         const { data: options } = await this.api.post('/login', {
-          name: this.email,
+          name: this.nameEmailUnique,
         });
 
         this.log = JSON.stringify(options, null, 2);
@@ -68,8 +68,8 @@ export default {
           },
         });
         const { data: options } = await this.api.post('/register', {
-          name: this.email,
-          displayName: this.username,
+          name: this.nameEmailUnique,
+          displayName: this.displayName,
           ...opts,
         });
 

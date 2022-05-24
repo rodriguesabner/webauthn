@@ -14,27 +14,27 @@
 
       <div class="login-box">
         <label for="username">
-          Nome
+          Display Name
 
           <input
             id="username"
             placeholder="Seu nome"
-            v-model="username"
+            v-model="displayName"
           />
         </label>
 
         <label for="username">
-          Email
+          Name/Email (Único)
 
           <input
             id="username"
             type="email"
             placeholder="seu@email.com"
-            v-model="email"
+            v-model="nameEmailUnique"
           />
         </label>
         <label for="username">
-          Senha
+          Senha (Opcional)
 
           <input
             id="username"
