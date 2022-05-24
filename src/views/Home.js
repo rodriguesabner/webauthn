@@ -80,12 +80,12 @@ export default {
         } catch (error) {
           // Some basic error handling
           if (error.name === 'InvalidStateError') {
-            this.log = 'Error: Authenticator was probably already registered by user';
+            // this.log = 'Error: Authenticator was probably already registered by user';
           } else {
-            this.log = error;
+            // this.log = error;
           }
 
-          throw error;
+          // throw error;
         }
 
         this.log = `'[AttestationCredential]', ${JSON.stringify(attResp)}`;
