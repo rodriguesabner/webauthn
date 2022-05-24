@@ -37,7 +37,7 @@ export default {
           name: this.email,
         });
 
-        options.challenge = base64url.decode(options.challenge);
+        // options.challenge = base64url.decode(options.challenge);
 
         let asseResp;
         try {
