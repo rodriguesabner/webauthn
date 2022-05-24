@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { startAuthentication, startRegistration } from '@simplewebauthn/browser';
-// import { base64url } from '@/common/base64url-arraybuffer';
 
 export default {
   name: 'App',
@@ -15,7 +14,7 @@ export default {
   },
   async created() {
     this.api = axios.create({
-      baseURL: 'https://9f7c-2804-431-e7c3-38ac-102f-f143-6a91-2cb0.sa.ngrok.io/user',
+      baseURL: process.env.VUE_APP_API_URL,
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
@@ -38,7 +37,6 @@ export default {
         });
 
         this.log = JSON.stringify(options, null, 2);
-        // options.challenge = base64url.decode(options.challenge);
 
         let asseResp;
         try {
