@@ -52,7 +52,7 @@ export default {
         alert('oláaaaaaa a´t euq enfim');
       } catch (e) {
         console.log(e);
-        this.log = JSON.stringify(`erro login: ${e.message}`, null, 2);
+        // this.log = JSON.stringify(`erro login: ${e.message}`, null, 2);
         alert('Ocorreu um erro, por favor, dê uma olhada no log.');
       }
     },
