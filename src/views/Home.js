@@ -1,15 +1,25 @@
 import axios from 'axios';
 import { startAuthentication, startRegistration } from '@simplewebauthn/browser';
+// eslint-disable-next-line import/extensions
+import ModalLog from '@/views/ModalLog';
+// eslint-disable-next-line import/extensions
+import ModalCredentials from '@/views/ModalCredentials';
 
 export default {
   name: 'App',
+  components: {
+    ModalLog,
+    ModalCredentials,
+  },
   data() {
     return {
       credentials: [],
-      displayName: 'Abner Rodrigues',
-      nameEmailUnique: 'abner@gmail.com',
-      password: 'abner',
+      displayName: '',
+      nameEmailUnique: '',
+      password: '',
       log: '',
+      openModalLog: false,
+      openModalCredentials: false,
     };
   },
   async created() {
@@ -36,25 +46,28 @@ export default {
           name: this.nameEmailUnique,
         });
 
-        this.log = JSON.stringify(options, null, 2);
+        this.log += '---------------------------------------------\n';
+        this.log += JSON.stringify(options, null, 2);
 
         let asseResp;
         try {
           asseResp = await startAuthentication(options);
         } catch (e) {
-          this.log = `${JSON.stringify(e, null, 2)}`;
+          this.log += '---------------------------------------------';
+          this.log += `${JSON.stringify(e, null, 2)}`;
           console.log(e);
         }
 
-        this.log = `'[AssertionCredential] -> ${JSON.stringify(asseResp, null, 2)}`;
+        this.log += '---------------------------------------------\n';
+        this.log += `'[AssertionCredential] -> ${JSON.stringify(asseResp, null, 2)}`;
         await this.api.post('/authResponse', {
           ...asseResp,
         });
 
         alert('oláaaaaaa a´t euq enfim');
       } catch (e) {
-        console.log(e);
-        this.log = JSON.stringify(`erro login: ${e.message}`, null, 2);
+        this.log += '---------------------------------------------\n';
+        this.log += JSON.stringify(`erro login: ${e.message}`, null, 2);
         alert('Ocorreu um erro, por favor, dê uma olhada no log.');
       }
     },
@@ -80,13 +93,15 @@ export default {
           attResp = await startRegistration(options);
         } catch (error) {
           if (error.name === 'InvalidStateError') {
-            this.log = 'Error: Authenticator was probably already registered by user';
+            this.log += '---------------------------------------------\n';
+            this.log += 'Error: Authenticator was probably already registered by user';
           } else {
-            this.log = error;
+            this.log += error;
           }
         }
 
-        this.log = `'[AttestationCredential]', ${JSON.stringify(attResp, null, 2)}`;
+        this.log += '---------------------------------------------\n';
+        this.log += `'[AttestationCredential]', ${JSON.stringify(attResp, null, 2)}`;
 
         const { data: responseData } = await this.api.post('/response', { ...attResp });
 
@@ -94,9 +109,22 @@ export default {
         console.log(responseData);
       } catch (e) {
         console.log(e);
-        this.log = JSON.stringify(`erro register: ${e.message}`, null, 2);
+        this.log += '---------------------------------------------\n';
+        this.log += JSON.stringify(`erro register: ${e.message}`, null, 2);
         alert('Ocorreu um erro, por favor, dê uma olhada no log.');
       }
+    },
+    handleOpenModalLog() {
+      this.openModalLog = true;
+    },
+    handleCloseModalLog() {
+      this.openModalLog = false;
+    },
+    handleOpenModalCredentials() {
+      this.openModalCredentials = true;
+    },
+    handleCloseModalCredentials() {
+      this.openModalCredentials = false;
     },
   },
 };

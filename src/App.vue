@@ -1,16 +1,20 @@
 <template>
   <div id="app">
+    <modal-log :show="openModalLog" :log="log" :onClose="handleCloseModalLog"/>
+    <modal-credentials
+      :show="openModalCredentials"
+      :credentials="credentials"
+      :onClose="handleCloseModalCredentials"
+    />
     <div id="container">
-      <header>
-        <img alt="biometric" style="width: 200px"
-             src="https://www.creativefabrica.com/wp-content/uploads/2021/06/03/Biometric-Fingerprint-Scanning-Icon-Graphics-12873794-1-1-580x386.jpg"/>
-        <h1 style="text-align: center">
-          Entrar com Biometria
-        </h1>
-        <p style="margin-top: 10px; color: #777; text-align: center">
-          Entre rapidamente em sua conta usando sua biometria
-        </p>
-      </header>
+      <div>
+        <header>
+          <img src="./assets/menu.svg" alt="menu"/>
+          <img src="./assets/bell.svg" alt="bell"/>
+        </header>
+
+        <h1 id="logo">Minha Company</h1>
+      </div>
 
       <div class="login-box">
         <label for="username">
@@ -43,68 +47,29 @@
             v-model="password"
           />
         </label>
+
+        <button id="already-account" @click="login()">
+          acessar Conta
+        </button>
+
         <button
-          id="btn-login"
+          id="btn-register"
           @click="registerWebAuthN()">
           Registrar
         </button>
       </div>
 
-      <button id="already-account" @click="login()">
-        Já tem uma conta? Clique aqui
-      </button>
+      <footer>
+        <button @click="handleOpenModalLog()">
+          <img src="./assets/flag.svg" alt="flag"/>
+          Log
+        </button>
 
-      <p style="
-    max-width: 500px;
-    width: 100%;
-    overflow: auto;
-    margin-top: 20px;
-    min-height: 200px;
-    padding: 20px;
-    background-color: #F2F4F6">
-        {{ log }}
-      </p>
-
-      <div>
-        <p style="margin-top: 2em;">
-          Credenciais salvas
-        </p>
-        <ul
-          style="
-        max-width: 500px;
-        width: 100%;
-        overflow: hidden;
-        list-style-type: none;
-        padding: 10px;
-        background-color: #F2F4F6;"
-        >
-          <li
-            v-for="(credential, key) in credentials"
-            :key="key"
-            style="
-          padding: 10px;
-          margin-bottom: 1em;
-          border-radius: 4px;
-"
-          >
-            <div>
-              <p>{{ credential.credentialID }}</p>
-
-              <button>
-                Excluir
-              </button>
-            </div>
-            <p>Auth Type: {{ credential.type }}</p>
-            <p>Environment:
-              {{ `${credential.browser} / ${credential.os} / ${credential.platform}` }}
-            </p>
-            <p>Transports: N/A</p>
-            <p>Enrolled: {{ new Date(credential.registered).toLocaleString() }}</p>
-            <p>Public Key: {{ credential.credentialPublicKey }}</p>
-            <p>Credential ID: {{ credential.credentialID }}</p>
-          </li>
-        </ul>
-      </div>
+        <button @click="handleOpenModalCredentials()">
+          <img src="./assets/database.svg" alt="database"/>
+          Credenciais
+        </button>
+      </footer>
     </div>
   </div>
 </template>
@@ -116,82 +81,118 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: #fff;
+  background-color: #e61c4e;
 }
 
 #app {
   display: block;
   flex-direction: column;
   font-family: 'Roboto', sans-serif;
-  padding: 2em;
-  color: #000;
-  justify-content: center;
-  align-items: center;
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 7em);
 }
 
 #container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
   width: 100%;
-}
-
-#root > div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 300px;
+  height: 100%;
+  padding: 1em 2em;
 }
 
 header {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  max-width: 250px;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 1em;
+  width: 100%;
+}
+
+#logo {
+  font-size: 26px;
+  color: #fff;
 }
 
 .login-box {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin-top: 2em;
-  max-width: 250px;
+  max-width: 100%;
 }
 
 .login-box label {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 10px;
   font-size: 12px;
+  color: #fff;
+  width: 100%;
 }
 
-#username {
+.login-box input {
+  margin-top: 10px;
+  width: 100%;
+  background-color: transparent;
   padding: 8px 10px;
   border-radius: 4px;
   border: 1px solid #F2F4F6;
-  background-color: #fff;
-  color: #000;
-  outline: 0
+  color: #fff;
+  outline: 0;
+  border-bottom: 1px solid #fff;
 }
 
-#btn-login {
-  background-color: #F2F4F6;
+.login-box input::placeholder {
+  color: #ddd;
+}
+
+#already-account {
+  background-color: #fff;
+  font-weight: 700;
+  min-height: 48px;
+  padding: 10px;
+  border-radius: 20px;
+  font-size: 14px;
+  border: 0;
+  color: #e61c4e;
+  width: 100%;
+  cursor: pointer;
+  margin-top: 2em;
+}
+
+#btn-register {
+  background-color: transparent;
   padding: 8px 10px;
   border: 0;
   margin-top: 10px;
   cursor: pointer;
   border-radius: 4px;
-  color: dodgerblue;
+  color: #fff;
+  font-size: 14px;
 }
 
-#already-account {
-  margin-top: 2.5em;
-  font-weight: 600;
-  font-size: 14px;
-  border: 0;
-  color: dodgerblue;
-  max-width: 100%;
-  cursor: pointer;
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 3em;
 }
+
+footer button {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  color: #fff;
+  background-color: transparent;
+  border: 0;
+  font-size: 16px;
+}
+
+footer button img {
+  margin-bottom: 10px;
+}
+
 </style>
