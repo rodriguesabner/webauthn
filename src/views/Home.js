@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { startAuthentication, startRegistration } from '@simplewebauthn/browser';
-import { base64url } from '@/common/base64url-arraybuffer';
 
 export default {
   name: 'App',
