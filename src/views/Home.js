@@ -110,6 +110,7 @@ export default {
       } catch (e) {
         console.log(e);
         this.log += '---------------------------------------------\n';
+
         this.log += JSON.stringify(`erro register: ${e.message}`, null, 2);
         alert('Ocorreu um erro, por favor, dê uma olhada no log.');
       }
