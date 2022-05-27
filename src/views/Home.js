@@ -16,7 +16,6 @@ export default {
       credentials: [],
       displayName: '',
       nameEmailUnique: '',
-      password: '',
       log: '',
       openModalLog: false,
       openModalCredentials: false,

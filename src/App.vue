@@ -37,16 +37,6 @@
             v-model="nameEmailUnique"
           />
         </label>
-        <label for="username">
-          Senha (Opcional)
-
-          <input
-            id="username"
-            type="password"
-            placeholder="senha"
-            v-model="password"
-          />
-        </label>
 
         <button id="already-account" @click="login()">
           acessar Conta
