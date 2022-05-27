@@ -105,6 +105,7 @@ export default {
         const { data: responseData } = await this.api.put('/register-response', { ...attResp });
 
         this.credentials.push(responseData);
+        alert('Registrado com sucesso!');
         console.log(responseData);
       } catch (e) {
         console.log(e);
