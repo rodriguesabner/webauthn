@@ -121,7 +121,7 @@
                   <button
                     class="register-account"
                     type="button"
-                    @click="handleOpenModalCredentials()"
+                    @click="registerWebAuthN()"
                   >
                     Registrar
                   </button>
