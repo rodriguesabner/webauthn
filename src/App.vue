@@ -247,6 +247,7 @@ body {
   justify-content: center;
   overflow: hidden;
   height: 500px;
+  z-index: -1;
 }
 
 .footer-bottom_end::before {
