@@ -40,6 +40,11 @@ export default {
   },
   methods: {
     async login() {
+      if (this.displayName === '' || this.nameEmailUnique === '') {
+        alert('Por favor, preencha todos os campos');
+        return;
+      }
+
       try {
         const { data: options } = await this.api.post('/login', {
           name: this.nameEmailUnique,
@@ -71,6 +76,11 @@ export default {
       }
     },
     async registerWebAuthN() {
+      if (this.displayName === '' || this.nameEmailUnique === '') {
+        alert('Por favor, preencha todos os campos');
+        return;
+      }
+
       try {
         const opts = {};
         Object.assign(opts, {
