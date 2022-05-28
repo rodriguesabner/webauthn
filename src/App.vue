@@ -8,12 +8,12 @@
     />
     <div id="container-mobile">
       <div class="header-mobile">
-        <header>
-          <img src="./assets/menu.svg" alt="menu"/>
-          <img src="./assets/bell.svg" alt="bell"/>
-        </header>
-
         <h1 id="logo">Webauthn</h1>
+
+        <button @click="handleOpenModalLog()">
+          <img src="./assets/flag.svg" alt="flag"/>
+          Log
+        </button>
       </div>
 
       <div class="login-box">
@@ -49,17 +49,10 @@
         </button>
       </div>
 
-      <footer>
-        <button @click="handleOpenModalLog()">
-          <img src="./assets/flag.svg" alt="flag"/>
-          Log
-        </button>
+      <div class="footer-bottom_end"/>
 
-        <button @click="handleOpenModalCredentials()">
-          <img src="./assets/database.svg" alt="database"/>
-          Credenciais
-        </button>
-      </footer>
+      <footer/>
+
     </div>
     <div id="container-desktop">
       <header>
@@ -90,7 +83,7 @@
               display: flex;
               flex-direction: row;
               align-items: center;
-              justify-content: space-between;
+              justify-content: center;
               height: 100%;
             ">
             <div class="left-content">
@@ -167,15 +160,17 @@ body {
 
 .header-mobile {
   display: none;
-  flex-direction: column;
-}
-
-.header-mobile header {
-  display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 1em;
-  width: 100%;
+  margin-top: 1em;
+}
+
+.header-mobile button {
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  background-color: transparent;
+  border: 0;
 }
 
 #logo {
@@ -205,9 +200,9 @@ body {
   margin-top: 10px;
   width: 100%;
   background-color: transparent;
+  border-radius: 0;
   padding: 8px 10px;
-  border-radius: 4px;
-  border: 1px solid #F2F4F6;
+  border: 0;
   color: #fff;
   outline: 0;
   border-bottom: 1px solid #fff;
@@ -218,14 +213,14 @@ body {
 }
 
 #already-account {
-  background-color: #fff;
+  background-image: linear-gradient(90deg, #375ced, #8a4ef4);
   font-weight: 700;
   min-height: 48px;
   padding: 10px;
   border-radius: 20px;
   font-size: 14px;
   border: 0;
-  color: #e61c4e;
+  color: #fff;
   width: 100%;
   cursor: pointer;
   margin-top: 2em;
@@ -242,26 +237,30 @@ body {
   font-size: 14px;
 }
 
-footer {
+.footer-bottom_end {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-top: 3em;
-}
-
-footer button {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
   justify-content: center;
-  color: #fff;
-  background-color: transparent;
-  border: 0;
-  font-size: 16px;
+  overflow: hidden;
+  height: 500px;
 }
 
-footer button img {
-  margin-bottom: 10px;
+.footer-bottom_end::before {
+  content: "";
+  position: absolute;
+  bottom: -15em;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background-image: url("./assets/bottom_gradient.png");
+  background-size: cover;
+  background-position: center;
 }
 
 #container-desktop {
@@ -293,7 +292,7 @@ footer button img {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 30%;
+  width: 500px;
   color: #fff;
   backdrop-filter: blur(10px);
   padding: 2em;
@@ -307,9 +306,10 @@ footer button img {
 
 #container-desktop .right-content {
   background-color: #fff;
-  width: 30%;
+  width: 500px;
   padding: 2em;
   border-radius: 10px;
+  margin-left: 20em;
 }
 
 #container-desktop .right-content h1 {
@@ -389,9 +389,15 @@ footer button img {
   }
 }
 
+@media (max-width: 1100px) {
+  #container-desktop .right-content {
+    margin-left: 2em;
+  }
+}
+
 @media (max-width: 768px) {
   body {
-    background-color: #e61c4e;
+    background-color: #0c081c;
   }
 
   #container-desktop {
