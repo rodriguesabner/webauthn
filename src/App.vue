@@ -45,7 +45,7 @@
         <button
           id="btn-register"
           @click="registerWebAuthN()">
-          Registrar
+          Criar nova conta
         </button>
       </div>
 
@@ -65,7 +65,7 @@
         <div style="position: absolute; top: 0; right: 0; left: 0; bottom: 0">
           <div class="color-change-5x"/>
           <img
-            src="https://images.pexels.com/photos/4350210/pexels-photo-4350210.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+            src="https://images.pexels.com/photos/4145355/pexels-photo-4145355.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=1"
             alt="hero-image"/>
         </div>
 
@@ -116,7 +116,7 @@
                     type="button"
                     @click="registerWebAuthN()"
                   >
-                    Registrar
+                    Criar nova conta
                   </button>
                 </div>
               </div>
@@ -296,7 +296,7 @@ body {
   width: 500px;
   color: #fff;
   backdrop-filter: blur(10px);
-  padding: 2em;
+  padding: 4em 2em;
   border-radius: 20px;
 }
 
